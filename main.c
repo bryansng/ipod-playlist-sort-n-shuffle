@@ -8,7 +8,7 @@
 #define NUM_SONGS 3
 //#define NUM_ARTISTS 1
 //#define NUM_SONGS 1
-#define STR_SIZE 80
+#define STR_SIZE 160
 
 // NOTE: at least specify the size of second dimension.
 void mergesort(char a[][STR_SIZE], int i, int j);
@@ -41,11 +41,15 @@ int main(void)
 	int numOfArtists = 4;
 	//The total number of songs for each artist (Note that less than 3 songs can be provided for each artist)
 	int numSongsPerArtist[NUM_ARTISTS] = {0};
+	//The total number of songs
+	int totalSongs = 0;
 	numSongsPerArtist[0] = 3;
 	numSongsPerArtist[1] = 3;
 	numSongsPerArtist[2] = 3;
 	numSongsPerArtist[3] = 3;
-
+	totalSongs = 3 * 4;
+	
+	
 	/*
 	* Use here functions that you should implement to insert artists and songs from the standard input.
 	* Note that you also need to track the number of artists and the number of songs for each artist.
@@ -71,32 +75,58 @@ int main(void)
 			else if (artNum == 3)
 				fgets(songsArtist4[songNum], STR_SIZE, stdin);
 			
-			// keeps track number of songs per artist.
-			if (strlen(songsArtist1[songNum]) > 0)
-				numSongsPerArtist[artNum] += 1;
+			// keeps track number of songs per artist and total number of songs.
+			numSongsPerArtist[artNum] += 1;
+			totalSongs += 1;
 		}
 		// keeps track the number of artists.
 		numOfArtists += 1;
 		puts("");
 	}*/
+	int i;
+	// removes newline, if present.
+	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
+	{
+		i = strlen(artists[artNum])-1;
+		if (artists[artNum][i] == '\n')
+			artists[artNum][i] = '\0';
+		
+		for (songNum = 0; songNum < NUM_SONGS; songNum++)
+		{
+			if (artNum == 0)
+			{
+				i = strlen(songsArtist1[songNum])-1;
+				if (songsArtist1[songNum][i] == '\n')
+					songsArtist1[songNum][i] = '\0';
+			}
+			else if (artNum == 1)
+			{
+				i = strlen(songsArtist2[songNum])-1;
+				if (songsArtist2[songNum][i] == '\n')
+					songsArtist2[songNum][i] = '\0';
+			}
+			else if (artNum == 2)
+			{
+				i = strlen(songsArtist3[songNum])-1;
+				if (songsArtist3[songNum][i] == '\n')
+					songsArtist3[songNum][i] = '\0';
+			}
+			else if (artNum == 3)
+			{
+				i = strlen(songsArtist4[songNum])-1;
+				if (songsArtist4[songNum][i] == '\n')
+					songsArtist4[songNum][i] = '\0';
+			}
+		}
+	}
+	
+	
 	/*
 	* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
 	* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
 	*/
-	/*
-	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
-	{
-		// sorts the artist.
-		mergesort(artists[artNum], 0, numSongsPerArtist[artNum]);
-		
-		// sorts the song names by lexicographic ordering by ascending order.
-		for (songNum = 0; songNum < NUM_SONGS; songNum++)
-			mergesort(songsArtist1[songNum], 0, strlen();
-	}
-	*/
-	
 	// sorts the artist.
-	mergesort(artists, 0, numOfArtists);
+	mergesort(artists, 0, numOfArtists-1);
 	// sorts the song names by lexicographic ordering by ascending order.
 	for (artNum = 0; artNum < numOfArtists; artNum++)
 	{
@@ -114,30 +144,61 @@ int main(void)
 	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
 	{
 		// prints the artist name.
-		printf("%s", artists[artNum]);
+		printf("%s\n", artists[artNum]);
 		
 		// prints the songs of the artist.
 		for (songNum = 0; songNum < NUM_SONGS; songNum++)
 		{
 			if (artNum == 0)
-				printf("    -  %s", songsArtist1[songNum]);
+				printf("    -  %s\n", songsArtist1[songNum]);
 			else if (artNum == 1)
-				printf("    -  %s", songsArtist2[songNum]);
+				printf("    -  %s\n", songsArtist2[songNum]);
 			else if (artNum == 2)
-				printf("    -  %s", songsArtist3[songNum]);
+				printf("    -  %s\n", songsArtist3[songNum]);
 			else if (artNum == 3)
-				printf("    -  %s", songsArtist4[songNum]);
+				printf("    -  %s\n", songsArtist4[songNum]);
 		}
 	}
-
+	
+	
 	/*
 	* Use here the function shuffleSongs to shuffle all the songs
 	* Print the list of shuffled songs
 	*/
-
-
-
-
+	int totalSongNum = 0;
+	char songs[NUM_ARTISTS*NUM_SONGS][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
+	
+	// creates a playlist by adding all the songs with their artist together.
+	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
+		for (songNum = 0; songNum < NUM_SONGS; songNum++, totalSongNum++)
+		{
+			strcat(songs[totalSongNum], artists[artNum]);
+			strcat(songs[totalSongNum], " - ");
+			if (artNum == 0)
+				strcat(songs[totalSongNum], songsArtist1[songNum]);
+			else if (artNum == 1)
+				strcat(songs[totalSongNum], songsArtist2[songNum]);
+			else if (artNum == 2)
+				strcat(songs[totalSongNum], songsArtist3[songNum]);
+			else if (artNum == 3)
+				strcat(songs[totalSongNum], songsArtist4[songNum]);
+		}
+	puts("");
+	puts("");
+	
+	// for debug, prints the songs in the playlist.
+	//for (totalSongNum = 0; totalSongNum < totalSongs; totalSongNum++)
+		//printf("totalSongNum, %d:\n%s\n\n", totalSongNum, songs[totalSongNum]);
+	
+	printf("Shuffled Playlist:\n");
+	for (totalSongNum = 0; totalSongNum < totalSongs-1; totalSongNum++)
+	{
+		
+	}
+	
+	
+	
+	
 	return 0;
 }
 
