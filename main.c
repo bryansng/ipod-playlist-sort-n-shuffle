@@ -5,10 +5,10 @@
 #include <time.h>
 #include "sortAndShuffle.h"
 
-#define NUM_ARTISTS 4
-#define NUM_SONGS 3
-//#define NUM_ARTISTS 1
-//#define NUM_SONGS 1
+#define MAX_ARTISTS 4
+#define MAX_SONGS 3
+//#define MAX_ARTISTS 1
+//#define MAX_SONGS 1
 #define STR_SIZE 160
 
 // NOTE: at least specify the size of second dimension.
@@ -18,30 +18,30 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2);
 int main(void)
 {
 	//The array containing artists names
-	//char artists[NUM_ARTISTS][STR_SIZE] = {0};
-	char artists[NUM_ARTISTS][STR_SIZE] = {"b\n", "c\n", "d\n", "a\n"};
-	//char artists[NUM_ARTISTS][STR_SIZE] = {"a", "b", "c", "d"};
+	//char artists[MAX_ARTISTS][STR_SIZE] = {0};
+	char artists[MAX_ARTISTS][STR_SIZE] = {"b\n", "c\n", "d\n", "a\n"};
+	//char artists[MAX_ARTISTS][STR_SIZE] = {"a", "b", "c", "d"};
 	//The array containing the sorted artists
-	//char sortedArtists[NUM_ARTISTS][STR_SIZE] = {0};
+	//char sortedArtists[MAX_ARTISTS][STR_SIZE] = {0};
 	//Songs for Artist 1
-	//char songsArtist1[NUM_SONGS][STR_SIZE] = {0};
-	char songsArtist1[NUM_SONGS][STR_SIZE] = {"a3\n", "a1\n", "a2\n"};
-	//char songsArtist1[NUM_SONGS][STR_SIZE] = {"a1", "a2", "a3"};
+	//char songsArtist1[MAX_SONGS][STR_SIZE] = {0};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {"a3\n", "a1\n", "a2\n"};
+	//char songsArtist1[MAX_SONGS][STR_SIZE] = {"a1", "a2", "a3"};
 	//Songs for Artist 2
-	//char songsArtist2[NUM_SONGS][STR_SIZE] = {0};
-	char songsArtist2[NUM_SONGS][STR_SIZE] = {"b3\n", "b1\n", "b2\n"};
-	//char songsArtist2[NUM_SONGS][STR_SIZE] = {"b1", "b2", "b3"};
+	//char songsArtist2[MAX_SONGS][STR_SIZE] = {0};
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {"b3\n", "b1\n", "b2\n"};
+	//char songsArtist2[MAX_SONGS][STR_SIZE] = {"b1", "b2", "b3"};
 	//Songs for Artist 3
-	//char songsArtist3[NUM_SONGS][STR_SIZE] = {0};
-	char songsArtist3[NUM_SONGS][STR_SIZE] = {"c3\n", "c1\n", "c2\n"};
-	//char songsArtist3[NUM_SONGS][STR_SIZE] = {"c1", "c2", "c3"};
+	//char songsArtist3[MAX_SONGS][STR_SIZE] = {0};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {"c3\n", "c1\n", "c2\n"};
+	//char songsArtist3[MAX_SONGS][STR_SIZE] = {"c1", "c2", "c3"};
 	//Songs for Artist 4
-	char songsArtist4[NUM_SONGS][STR_SIZE] = {"d3\n", "d1\n", "d2\n"};
-	//char songsArtist4[NUM_SONGS][STR_SIZE] = {"d1", "d2", "d3"};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {"d3\n", "d1\n", "d2\n"};
+	//char songsArtist4[MAX_SONGS][STR_SIZE] = {"d1", "d2", "d3"};
 	//The total number of artists (Note it can be less than 4)
 	int numOfArtists = 4;
 	//The total number of songs for each artist (Note that less than 3 songs can be provided for each artist)
-	int numSongsPerArtist[NUM_ARTISTS] = {0};
+	int numSongsPerArtist[MAX_ARTISTS] = {0};
 	//The total number of songs
 	int totalSongs = 0;
 	numSongsPerArtist[0] = 3;
@@ -56,7 +56,7 @@ int main(void)
 	* Note that you also need to track the number of artists and the number of songs for each artist.
 	*/
 	int artNum, songNum;
-	/*for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
+	/*for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
 	{
 		// takes in the artist names.
 		printf("Insert an artist/group name:\n");
@@ -64,7 +64,7 @@ int main(void)
 		puts("");
 		
 		// takes in the artist songs.
-		for (songNum = 0; songNum < NUM_SONGS; songNum++)
+		for (songNum = 0; songNum < MAX_SONGS; songNum++)
 		{
 			printf("Insert song %d for %s", songNum+1, artists[artNum]);
 			if (artNum == 0)
@@ -86,13 +86,13 @@ int main(void)
 	}*/
 	int songLength;
 	// removes newline, if present.
-	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
+	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
 	{
 		songLength = strlen(artists[artNum])-1;
 		if (artists[artNum][songLength] == '\n')
 			artists[artNum][songLength] = '\0';
 		
-		for (songNum = 0; songNum < NUM_SONGS; songNum++)
+		for (songNum = 0; songNum < MAX_SONGS; songNum++)
 		{
 			if (artNum == 0)
 			{
@@ -142,13 +142,13 @@ int main(void)
 	}
 	
 	printf("Sorted list of songs:\n");
-	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
+	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
 	{
 		// prints the artist name.
 		printf("%s\n", artists[artNum]);
 		
 		// prints the songs of the artist.
-		for (songNum = 0; songNum < NUM_SONGS; songNum++)
+		for (songNum = 0; songNum < MAX_SONGS; songNum++)
 		{
 			if (artNum == 0)
 				printf("    -  %s\n", songsArtist1[songNum]);
@@ -167,11 +167,11 @@ int main(void)
 	* Print the list of shuffled songs
 	*/
 	int totalSongNum = 0;
-	char songs[NUM_ARTISTS*NUM_SONGS][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
+	char songs[MAX_ARTISTS*MAX_SONGS][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
 	
 	// creates a playlist by adding all the songs with their artist together.
-	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
-		for (songNum = 0; songNum < NUM_SONGS; songNum++, totalSongNum++)
+	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
+		for (songNum = 0; songNum < MAX_SONGS; songNum++, totalSongNum++)
 		{
 			strcat(songs[totalSongNum], artists[artNum]);
 			strcat(songs[totalSongNum], " - ");
