@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "sortAndShuffle.h"
 
 #define NUM_ARTISTS 4
@@ -83,39 +84,39 @@ int main(void)
 		numOfArtists += 1;
 		puts("");
 	}*/
-	int i;
+	int songLength;
 	// removes newline, if present.
 	for (artNum = 0; artNum < NUM_ARTISTS; artNum++)
 	{
-		i = strlen(artists[artNum])-1;
-		if (artists[artNum][i] == '\n')
-			artists[artNum][i] = '\0';
+		songLength = strlen(artists[artNum])-1;
+		if (artists[artNum][songLength] == '\n')
+			artists[artNum][songLength] = '\0';
 		
 		for (songNum = 0; songNum < NUM_SONGS; songNum++)
 		{
 			if (artNum == 0)
 			{
-				i = strlen(songsArtist1[songNum])-1;
-				if (songsArtist1[songNum][i] == '\n')
-					songsArtist1[songNum][i] = '\0';
+				songLength = strlen(songsArtist1[songNum])-1;
+				if (songsArtist1[songNum][songLength] == '\n')
+					songsArtist1[songNum][songLength] = '\0';
 			}
 			else if (artNum == 1)
 			{
-				i = strlen(songsArtist2[songNum])-1;
-				if (songsArtist2[songNum][i] == '\n')
-					songsArtist2[songNum][i] = '\0';
+				songLength = strlen(songsArtist2[songNum])-1;
+				if (songsArtist2[songNum][songLength] == '\n')
+					songsArtist2[songNum][songLength] = '\0';
 			}
 			else if (artNum == 2)
 			{
-				i = strlen(songsArtist3[songNum])-1;
-				if (songsArtist3[songNum][i] == '\n')
-					songsArtist3[songNum][i] = '\0';
+				songLength = strlen(songsArtist3[songNum])-1;
+				if (songsArtist3[songNum][songLength] == '\n')
+					songsArtist3[songNum][songLength] = '\0';
 			}
 			else if (artNum == 3)
 			{
-				i = strlen(songsArtist4[songNum])-1;
-				if (songsArtist4[songNum][i] == '\n')
-					songsArtist4[songNum][i] = '\0';
+				songLength = strlen(songsArtist4[songNum])-1;
+				if (songsArtist4[songNum][songLength] == '\n')
+					songsArtist4[songNum][songLength] = '\0';
 			}
 		}
 	}
@@ -190,18 +191,27 @@ int main(void)
 	//for (totalSongNum = 0; totalSongNum < totalSongs; totalSongNum++)
 		//printf("totalSongNum, %d:\n%s\n\n", totalSongNum, songs[totalSongNum]);
 	
+	int i, j;
+	char temp[STR_SIZE][STR_SIZE] = {0};
+	srand(time(NULL));
+	// shuffle playlist via knuth fisher-yates's algorithm.
 	printf("Shuffled Playlist:\n");
-	for (totalSongNum = 0; totalSongNum < totalSongs-1; totalSongNum++)
+	for (i = totalSongs-1; i > 0; i--)
 	{
+		j = rand() % i;
 		
+		strcpy(temp[0], songs[j]);
+		strcpy(songs[j], songs[i]);
+		strcpy(songs[i], temp[0]);
 	}
 	
-	
-	
+	for (totalSongNum = 0; totalSongNum < totalSongs; totalSongNum++)
+		printf("%d: %s\n", totalSongNum, songs[totalSongNum]);
 	
 	return 0;
 }
 
+// merge sort function.
 void mergesort(char a[][STR_SIZE], int i, int j)
 {
 	int mid;
@@ -215,6 +225,7 @@ void mergesort(char a[][STR_SIZE], int i, int j)
 	}
 }
 
+// merge sort function that merges two list together in ascending order via lexicographic ordering.
 void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 {
 	char temp[STR_SIZE][STR_SIZE] = {0};		// array used for merging.
