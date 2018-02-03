@@ -2,7 +2,6 @@
 *
 
 # But not these files...
-Assignment 1.pdf
-main.c
-sortAndSuffle.c
-sortAndShuffle.h
+!main.c
+!sortAndSuffle.c
+!sortAndShuffle.h
