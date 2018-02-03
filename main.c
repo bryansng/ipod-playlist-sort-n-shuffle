@@ -10,6 +10,11 @@
 #define MAX_SONGS 3
 
 void removeNewline(char a[][STR_SIZE], int i);
+
+void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists);
+
+void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE]);
+
 void createPlaylist(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *artistSongNum);
 
 int main(void)
@@ -109,38 +114,11 @@ int main(void)
 	* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
 	* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
 	*/
-	// sorts the artist.
-	mergeSort(artists, 0, numOfArtists-1);
-	// sorts the song names by lexicographic ordering in ascending order.
-	for (artNum = 0; artNum < numOfArtists; artNum++)
-		if (artNum == 0)
-			mergeSort(songsArtist1, 0, numSongsPerArtist[artNum]-1);
-		else if (artNum == 1)
-			mergeSort(songsArtist2, 0, numSongsPerArtist[artNum]-1);
-		else if (artNum == 2)
-			mergeSort(songsArtist3, 0, numSongsPerArtist[artNum]-1);
-		else if (artNum == 3)
-			mergeSort(songsArtist4, 0, numSongsPerArtist[artNum]-1);
+	// sorts the Artist and song of the artist.
+	sortArtistNSongs(artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numSongsPerArtist, numOfArtists);
 	
 	printf("Sorted list of songs:\n");
-	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
-	{
-		// prints the artist name.
-		printf("%s\n", artists[artNum]);
-		
-		// prints the songs of the artist.
-		for (songNum = 0; songNum < MAX_SONGS; songNum++)
-		{
-			if (artNum == 0)
-				printf("    -  %s\n", songsArtist1[songNum]);
-			else if (artNum == 1)
-				printf("    -  %s\n", songsArtist2[songNum]);
-			else if (artNum == 2)
-				printf("    -  %s\n", songsArtist3[songNum]);
-			else if (artNum == 3)
-				printf("    -  %s\n", songsArtist4[songNum]);
-		}
-	}
+	printSortedSongs(artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4);
 	
 	
 	/*
@@ -163,6 +141,46 @@ int main(void)
 		printf("%d: %s\n", artistSongNum, playlist[artistSongNum]);
 	
 	return 0;
+}
+
+void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
+{
+	int artNum;
+	// sorts the artist.
+	mergeSort(artists, 0, numOfArtists-1);
+	// sorts the song names by lexicographic ordering in ascending order.
+	for (artNum = 0; artNum < numOfArtists; artNum++)
+		if (artNum == 0)
+			mergeSort(songsArtist1, 0, numSongsPerArtist[artNum]-1);
+		else if (artNum == 1)
+			mergeSort(songsArtist2, 0, numSongsPerArtist[artNum]-1);
+		else if (artNum == 2)
+			mergeSort(songsArtist3, 0, numSongsPerArtist[artNum]-1);
+		else if (artNum == 3)
+			mergeSort(songsArtist4, 0, numSongsPerArtist[artNum]-1);
+}
+
+void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE])
+{
+	int artNum, songNum;
+	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
+	{
+		// prints the artist name.
+		printf("%s\n", artists[artNum]);
+		
+		// prints the songs of the artist.
+		for (songNum = 0; songNum < MAX_SONGS; songNum++)
+		{
+			if (artNum == 0)
+				printf("    -  %s\n", songsArtist1[songNum]);
+			else if (artNum == 1)
+				printf("    -  %s\n", songsArtist2[songNum]);
+			else if (artNum == 2)
+				printf("    -  %s\n", songsArtist3[songNum]);
+			else if (artNum == 3)
+				printf("    -  %s\n", songsArtist4[songNum]);
+		}
+	}
 }
 
 void createPlaylist(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *i)
