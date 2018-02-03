@@ -19,20 +19,18 @@ int main(void)
 	/*
 	// the array containing artists names.
 	char artists[MAX_ARTISTS][STR_SIZE] = {0};
-	// songs for Artist 1.
-	char songsArtist1[MAX_SONGS][STR_SIZE] = {0};
-	// songs for Artist 2.
-	char songsArtist2[MAX_SONGS][STR_SIZE] = {0};
-	// songs for Artist 3.
-	char songsArtist3[MAX_SONGS][STR_SIZE] = {0};
-	// songs for Artist 4.
-	char songsArtist4[MAX_SONGS][STR_SIZE] = {0};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 1.
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 2.
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 3.
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 4.
+	
 	// the total number of artists (Note it can be less than 4).
 	int numOfArtists = 0;
 	// the total number of songs for each artist (Note that less than 3 songs can be provided for each artist).
 	int numSongsPerArtist[MAX_ARTISTS] = {0};
-	// the total number of songs.
-	int totalSongs = 0;*/
+	
+	int totalSongs = 0;// the total number of songs.
+	*/
 	
 	char artists[MAX_ARTISTS][STR_SIZE] = {"b\n", "c\n", "d\n", "a\n"};
 	char songsArtist1[MAX_SONGS][STR_SIZE] = {"a3\n", "a1\n", "a2\n"};
@@ -139,6 +137,20 @@ int main(void)
 	
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE])

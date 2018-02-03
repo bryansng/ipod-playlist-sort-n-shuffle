@@ -95,7 +95,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 {
 	int i, j;  // counters.
 	char temp[STR_SIZE][STR_SIZE] = {0};  // array used as temp in bubble sort.
-	srand(time(NULL));
+	//srand(time(NULL));
 	
 	for (i = N-1; i > 0; i--)
 	{
