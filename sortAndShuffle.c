@@ -3,10 +3,12 @@
 #include <string.h>
 #include <time.h>
 
+#define MAX_ARTISTS 4
 #define STR_SIZE 160
 #include "sortAndShuffle.h"
 
 void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2);
+void mergeSort(char a[][STR_SIZE], int i, int j);
 
 
 /*
@@ -15,7 +17,22 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2);
 * - numOfArtists: the total number of artists
 *
 */
-void sortArtists(char sortedArtists[][80] , int numOfArtists){
+// sorts the Artist and song of the artist.
+void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
+{
+	int artNum;
+	// sorts the artist.
+	mergeSort(artists, 0, numOfArtists-1);
+	// sorts the song names by lexicographic ordering in ascending order.
+	for (artNum = 0; artNum < numOfArtists; artNum++)
+		if (artNum == 0)
+			mergeSort(songsArtist1, 0, numSongsPerArtist[artNum]-1);
+		else if (artNum == 1)
+			mergeSort(songsArtist2, 0, numSongsPerArtist[artNum]-1);
+		else if (artNum == 2)
+			mergeSort(songsArtist3, 0, numSongsPerArtist[artNum]-1);
+		else if (artNum == 3)
+			mergeSort(songsArtist4, 0, numSongsPerArtist[artNum]-1);
 }
 
 
@@ -25,8 +42,6 @@ void sortArtists(char sortedArtists[][80] , int numOfArtists){
 * - songsOfAnArtist: the array of the songs of an artist that was provided from the standard input
 * - numOfArtists: the number of artists provided from the standard input
 */
-void sortSongs(char songsOfAnArtist[][80], int numOfArtists){
-}
 // merge sort function.
 void mergeSort(char a[][STR_SIZE], int i, int j)
 {
@@ -75,8 +90,6 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 * - songsToBeShuffled: the array of the songs that should be shuffled
 * - numOfSongs: the number of songs to be shuffled
 */
-void shuffleSongs(char songsToBeShuffled[][80], int numOfSongs){
-}
 // shuffle function via knuth fisher-yate's algorithm.
 void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 {

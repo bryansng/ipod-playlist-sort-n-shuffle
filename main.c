@@ -3,19 +3,16 @@
 #include <string.h>
 #include <time.h>
 
+#define MAX_ARTISTS 4
+#define MAX_SONGS 3
 #define STR_SIZE 160
 #include "sortAndShuffle.h"
 
-#define MAX_ARTISTS 4
-#define MAX_SONGS 3
-
 void removeNewline(char a[][STR_SIZE], int i);
-
-void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists);
 
 void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE]);
 
-void createPlaylist(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *artistSongNum);
+void createPlaylist(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *trackNum);
 
 int main(void)
 {
@@ -125,40 +122,24 @@ int main(void)
 	* Use here the function shuffleSongs to shuffle all the songs
 	* Print the list of shuffled songs
 	*/
-	int artistSongNum = 0;
+	int trackNum = 0;
 	char playlist[MAX_ARTISTS*MAX_SONGS*2][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
 	
 	// creates a playlist by adding all the songs with their artist together.
-	createPlaylist(playlist, artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &artistSongNum);
-	createPlaylist(playlist, artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &artistSongNum);
+	createPlaylist(playlist, artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum);
+	createPlaylist(playlist, artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum);
 	
 	// shuffle playlist via knuth fisher-yates's algorithm.
 	printf("\n\nShuffled Playlist:\n");
 	shuffleArrayOfStrings(playlist, totalSongs * 2);
 	
 	// prints the shuffled playlist.
-	for (artistSongNum = 0; artistSongNum < totalSongs * 2; artistSongNum++)
-		printf("%d: %s\n", artistSongNum, playlist[artistSongNum]);
+	for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
+		printf("%d: %s\n", trackNum, playlist[trackNum]);
 	
 	return 0;
 }
 
-void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
-{
-	int artNum;
-	// sorts the artist.
-	mergeSort(artists, 0, numOfArtists-1);
-	// sorts the song names by lexicographic ordering in ascending order.
-	for (artNum = 0; artNum < numOfArtists; artNum++)
-		if (artNum == 0)
-			mergeSort(songsArtist1, 0, numSongsPerArtist[artNum]-1);
-		else if (artNum == 1)
-			mergeSort(songsArtist2, 0, numSongsPerArtist[artNum]-1);
-		else if (artNum == 2)
-			mergeSort(songsArtist3, 0, numSongsPerArtist[artNum]-1);
-		else if (artNum == 3)
-			mergeSort(songsArtist4, 0, numSongsPerArtist[artNum]-1);
-}
 
 void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE])
 {
@@ -183,27 +164,29 @@ void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], c
 	}
 }
 
+
 void createPlaylist(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *i)
 {
-	int artistSongNum = *i;	// stores the artistSongNum.
+	int trackNum = *i;	// stores the trackNum.
 	int artNum, songNum;
 	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
-		for (songNum = 0; songNum < MAX_SONGS; songNum++, artistSongNum++)
+		for (songNum = 0; songNum < MAX_SONGS; songNum++, trackNum++)
 		{
-			strcat(playlist[artistSongNum], artists[artNum]);
-			strcat(playlist[artistSongNum], " - ");
+			strcat(playlist[trackNum], artists[artNum]);
+			strcat(playlist[trackNum], " - ");
 			if (artNum == 0)
-				strcat(playlist[artistSongNum], songsArtist1[songNum]);
+				strcat(playlist[trackNum], songsArtist1[songNum]);
 			else if (artNum == 1)
-				strcat(playlist[artistSongNum], songsArtist2[songNum]);
+				strcat(playlist[trackNum], songsArtist2[songNum]);
 			else if (artNum == 2)
-				strcat(playlist[artistSongNum], songsArtist3[songNum]);
+				strcat(playlist[trackNum], songsArtist3[songNum]);
 			else if (artNum == 3)
-				strcat(playlist[artistSongNum], songsArtist4[songNum]);
+				strcat(playlist[trackNum], songsArtist4[songNum]);
 		}
-	*i = artistSongNum;	// returns the artistSongNum back into main.
+	*i = trackNum;	// returns the trackNum back into main.
 }
-	
+
+
 void removeNewline(char a[][STR_SIZE], int i)
 {
 	int len = strlen(a[i])-1;
