@@ -1,4 +1,8 @@
-desktop.ini
+# Ignore everything
+*
+
+# But not these files...
 Assignment 1.pdf
-Test/*
-TDL.txt
+main.c
+sortAndSuffle.c
+sortAndShuffle.h
