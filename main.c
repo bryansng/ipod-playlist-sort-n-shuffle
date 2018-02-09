@@ -140,8 +140,8 @@ int main(void)
 	shuffleArrayOfStrings(playlist, totalSongs * 2);
 	
 	// prints the shuffled playlist.
-	for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
-		printf("%d: %s\n", trackNum, playlist[trackNum]);
+	//for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
+		//printf("%d: %s\n", trackNum, playlist[trackNum]);
 	
 	return 0;
 }
