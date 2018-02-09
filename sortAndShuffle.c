@@ -93,16 +93,43 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 // shuffle function via knuth fisher-yate's algorithm.
 void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 {
-	int i, j;  // counters.
-	char temp[STR_SIZE][STR_SIZE] = {0};  // array used as temp in bubble sort.
+	int i, j, k;  // counters.
+	int allow_switch = 0;	// boolean value.
+	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
 	//srand(time(NULL));
 	
-	for (i = N-1; i > 0; i--)
+	for (i = N-1; i > 0; )
 	{
+		printf("i: %d\n", i);
 		j = rand() % i;
 		
-		strcpy(temp[0], a[j]);
-		strcpy(a[j], a[i]);
-		strcpy(a[i], temp[0]);
+		printf("a[%d]: %s\t%s\n", j, a[j], "replacing with");
+		// switch pos only if the element in the array does not occur in the previous 5 positions.
+		for (k = i-5; k < i; k++)
+		{
+			printf("k: %d\ta[k]: %s\n", k, a[k]);
+			if (strcmp(a[j], a[k]) == 0)
+			{
+				puts("");
+				break;
+			}
+			else if (k == i-1)
+			{
+				++k;
+				printf("k: %d\ta[k]: %s\t%s\n", k, a[k], "being replaced");
+				allow_switch = 1;
+			}
+		}
+		
+		if (allow_switch)
+		{
+			strcpy(temp[0], a[j]);
+			strcpy(a[j], a[i]);
+			strcpy(a[i], temp[0]);
+			
+			printf("replaced\n\n");
+			allow_switch = 0;
+			i--;
+		}
 	}
 }

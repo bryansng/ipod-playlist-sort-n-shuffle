@@ -56,6 +56,10 @@ int main(void)
 		removeNewline(artists, artNum);	// removes newline in artists.
 		puts("");
 		
+		// deals with the fact that user doesn't want to input further artists.
+		if (artists[artNum][0] == "\n")
+			break;
+		
 		// takes in the artist songs from user and removes newline in songs.
 		for (songNum = 0; songNum < MAX_SONGS; songNum++)
 		{
@@ -64,6 +68,10 @@ int main(void)
 			{
 				fgets(songsArtist1[songNum], STR_SIZE, stdin);
 				removeNewline(songsArtist1, songNum);
+				
+				// deals with the fact that user doesn't want to input further songs.
+				if (songsArtist1[songNum][0] == "\n")
+					break;
 			}
 			else if (artNum == 1)
 			{
