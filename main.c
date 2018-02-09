@@ -14,109 +14,137 @@ void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], c
 
 void createPlaylist(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *trackNum, int numOfArtists);
 
+void createTrack(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist[][STR_SIZE], int artNum, int songNum, int *track_no_from_main);
+
 int main(void)
 {
 	/*
 	// the array containing artists names.
 	char artists[MAX_ARTISTS][STR_SIZE] = {0};
-	char songsArtist1[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 1.
-	char songsArtist2[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 2.
-	char songsArtist3[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 3.
-	char songsArtist4[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 4.
+	char songsArtist1[MAX_SONGS+1][STR_SIZE] = {0}; // songs for Artist 1.
+	char songsArtist2[MAX_SONGS+1][STR_SIZE] = {0}; // songs for Artist 2.
+	char songsArtist3[MAX_SONGS+1][STR_SIZE] = {0}; // songs for Artist 3.
+	char songsArtist4[MAX_SONGS+1][STR_SIZE] = {0}; // songs for Artist 4.
 	
 	// the total number of artists (Note it can be less than 4).
 	int numOfArtists = 0;
 	// the total number of songs for each artist (Note that less than 3 songs can be provided for each artist).
-	int numSongsPerArtist[MAX_ARTISTS] = {0};
-	
-	int totalSongs = 0;// the total number of songs.*/
-	
-	
+	int numSongsPerArtist[MAX_ARTISTS] = {1, 1, 1, 1};	// check if needs to be 1 or 1,1,1,1
+	int totalSongs = 0;// the total number of songs.*
+	*/
+	/*
 	char artists[MAX_ARTISTS][STR_SIZE] = {"b\n", "c\n", "d\n", "a\n"};
-	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b3\n", "b1\n", "b2\n"};
-	char songsArtist2[MAX_SONGS][STR_SIZE] = {"c3\n", "c1\n", "c2\n"};
-	char songsArtist3[MAX_SONGS][STR_SIZE] = {"d3\n", "d1\n", "d2\n"};
-	char songsArtist4[MAX_SONGS][STR_SIZE] = {"a3\n", "a1\n", "a2\n"};
+	char songsArtist1[MAX_SONGS+1][STR_SIZE] = {"b\n", "b3\n", "b1\n", "b2\n"};
+	char songsArtist2[MAX_SONGS+1][STR_SIZE] = {"c\n", "c3\n", "c1\n", "c2\n"};
+	char songsArtist3[MAX_SONGS+1][STR_SIZE] = {"d\n", "d3\n", "d1\n", "d2\n"};
+	char songsArtist4[MAX_SONGS+1][STR_SIZE] = {"a\n", "a3\n", "a1\n", "a2\n"};
 	int numOfArtists = 4;
 	int numSongsPerArtist[MAX_ARTISTS] = {3, 3, 3, 3};
 	int totalSongs = 3 * 4;
+	*/
 	
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bryan\n", "liew\n", "vincent\n", "brady\n"};
+	char songsArtist1[MAX_SONGS+1][STR_SIZE] = {"bryan\n", "b1\n", "b2\n"};
+	char songsArtist2[MAX_SONGS+1][STR_SIZE] = {"liew\n", "l1\n", "l3\n", "l9\n"};
+	char songsArtist3[MAX_SONGS+1][STR_SIZE] = {"vincent\n", "v1\n"};
+	char songsArtist4[MAX_SONGS+1][STR_SIZE] = {"brady\n", "pork belly 1\n", "pork belly 3kg\n"};
+	int numOfArtists = 4;
+	int numSongsPerArtist[MAX_ARTISTS] = {3, 4, 2, 3};
+	//int totalSongs = 3 + 3 + 4 + 4;
+	int totalSongs = 2+3+1+2;
+	
+	/*
+	char artists[MAX_ARTISTS][STR_SIZE] = {"b\n", "c\n", "d\n"};
+	char songsArtist1[MAX_SONGS+1][STR_SIZE] = {"b\n", "b3\n", "b1\n"};
+	char songsArtist2[MAX_SONGS+1][STR_SIZE] = {"c\n", "c3\n", "c2\n"};
+	char songsArtist3[MAX_SONGS+1][STR_SIZE] = {"d\n", "d3\n", "d1\n", "d2\n"};
+	char songsArtist4[MAX_SONGS+1][STR_SIZE] = {"a\n", "a3\n", "a1\n", "a2\n"};
+	int numOfArtists = 3;
+	int numSongsPerArtist[MAX_ARTISTS] = {3, 3, 4, 4};
+	//int totalSongs = 3 + 3 + 4 + 4;
+	int totalSongs = 2 + 2 + 3;
+	*/
 	
 	/*
 	* Use here functions that you should implement to insert artists and songs from the standard input.
 	* Note that you also need to track the number of artists and the number of songs for each artist.
 	*/
 	int artNum, songNum;
+	
 	/*
+	char tempStoreArtist[1][STR_SIZE] = {0};	// holds artists temporary.
+	char tempStoreSong[1][STR_SIZE] = {0};	// holds songs temporary.
+	
 	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
 	{
 		// takes in the artist names from user.
 		// if user press enter without input, stop inputting more artists from user.
 		printf("Insert an artist/group name:\n");
-		fgets(artists[artNum], STR_SIZE, stdin);
-		puts("");
+		fgets(tempStoreArtist[0], STR_SIZE, stdin);
 		
-		if (artists[artNum][0] == '\n')
+		if (tempStoreArtist[0][0] == '\n')
 			break;
 		else
-			removeNewline(artists, artNum);
+		{
+			removeNewline(tempStoreArtist, 0);
+			
+			strcpy(artists[artNum], tempStoreArtist[0]);
+			switch(artNum)
+			{
+				case 0:
+					strcpy(songsArtist1[0], tempStoreArtist[0]);
+				case 1:
+					strcpy(songsArtist2[0], tempStoreArtist[0]);
+				case 2:
+					strcpy(songsArtist3[0], tempStoreArtist[0]);
+				case 3:
+					strcpy(songsArtist4[0], tempStoreArtist[0]);
+			}
+			
+			// keeps track the number of artists.
+			numOfArtists += 1;
+		}
 		
-		
+		puts("");
 		// takes in the artist songs from user and removes newline in songs.
 		// if user press enter without input, stop inputting more songs from user.
-		for (songNum = 0; songNum < MAX_SONGS; songNum++)
+		for (songNum = 1; songNum <= MAX_SONGS; songNum++)
 		{
-			printf("Insert song %d for %s\n", songNum+1, artists[artNum]);
-			if (artNum == 0)
+			printf("Insert song %d for %s\n", songNum, artists[artNum]);
+			fgets(tempStoreSong[0], STR_SIZE, stdin);
+			
+			if (tempStoreSong[0][0] == '\n')
+				break;
+			else
 			{
-				fgets(songsArtist1[songNum], STR_SIZE, stdin);
+				removeNewline(tempStoreSong, 0);
+			
+				switch(artNum)
+				{
+					case 0:
+						strcpy(songsArtist1[songNum], tempStoreSong[0]);
+					case 1:
+						strcpy(songsArtist2[songNum], tempStoreSong[0]);
+					case 2:
+						strcpy(songsArtist3[songNum], tempStoreSong[0]);
+					case 3:
+						strcpy(songsArtist4[songNum], tempStoreSong[0]);
+				}
 				
-				if (songsArtist1[songNum][0] == '\n')
-					break;
-				else
-					removeNewline(songsArtist1, songNum);
+				// keeps track number of songs per artist and total number of songs.
+				numSongsPerArtist[artNum] += 1;
+				totalSongs += 1;
 			}
-			else if (artNum == 1)
-			{
-				fgets(songsArtist2[songNum], STR_SIZE, stdin);
-				
-				if (songsArtist2[songNum][0] == '\n')
-					break;
-				else
-					removeNewline(songsArtist2, songNum);
-			}
-			else if (artNum == 2)
-			{
-				fgets(songsArtist3[songNum], STR_SIZE, stdin);
-				
-				if (songsArtist3[songNum][0] == '\n')
-					break;
-				else
-					removeNewline(songsArtist3, songNum);
-			}
-			else if (artNum == 3)
-			{
-				fgets(songsArtist4[songNum], STR_SIZE, stdin);
-				
-				if (songsArtist4[songNum][0] == '\n')
-					break;
-				else
-					removeNewline(songsArtist4, songNum);
-			}
-			// keeps track number of songs per artist and total number of songs.
-			numSongsPerArtist[artNum] += 1;
-			totalSongs += 1;
 		}
-		// keeps track the number of artists.
-		numOfArtists += 1;
 		puts("");
-	}*/
+	}
+	*/
 	
 	// for removing newline.
 	for (artNum = 0; artNum < numOfArtists; artNum++)
 	{
 		removeNewline(artists, artNum);	// removes newline in artists.
-		for (songNum = 0; songNum < MAX_SONGS; songNum++)
+		for (songNum = 0; songNum <= MAX_SONGS; songNum++)
 			if (artNum == 0)
 				removeNewline(songsArtist1, songNum);
 			else if (artNum == 1)
@@ -132,6 +160,10 @@ int main(void)
 	* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
 	* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
 	*/
+	printf("Unsorted list of songs:\n");
+	printSortedSongs(artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numOfArtists);
+	puts("\n");
+	
 	// sorts the Artist and song of the artist.
 	sortArtistNSongs(artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numSongsPerArtist, numOfArtists);
 	
@@ -149,7 +181,7 @@ int main(void)
 	// creates a playlist by adding all the songs with their artist together.
 	createPlaylist(playlist, artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
 	createPlaylist(playlist, artists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
-	
+	/*
 	// shuffle playlist via knuth fisher-yates's algorithm.
 	printf("\n\nShuffled Playlist:\n");
 	shuffleArrayOfStrings(playlist, totalSongs * 2);
@@ -157,7 +189,7 @@ int main(void)
 	// prints the shuffled playlist.
 	for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
 		printf("%d: %s\n", trackNum, playlist[trackNum]);
-	
+	*/
 	return 0;
 }
 
@@ -185,15 +217,15 @@ void printSortedSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], c
 		printf("%s\n", artists[artNum]);
 		
 		// prints the songs of the artist.
-		for (songNum = 0; songNum < MAX_SONGS; songNum++)
+		for (songNum = 1; songNum <= MAX_SONGS; songNum++)
 		{
-			if (artNum == 0)
+			if (strcmp(songsArtist1[0], artists[artNum]) == 0 && strcmp(songsArtist1[songNum], "") != 0)
 				printf("    -  %s\n", songsArtist1[songNum]);
-			else if (artNum == 1)
+			else if (strcmp(songsArtist2[0], artists[artNum]) == 0 && strcmp(songsArtist2[songNum], "") != 0)
 				printf("    -  %s\n", songsArtist2[songNum]);
-			else if (artNum == 2)
+			else if (strcmp(songsArtist3[0], artists[artNum]) == 0 && strcmp(songsArtist3[songNum], "") != 0)
 				printf("    -  %s\n", songsArtist3[songNum]);
-			else if (artNum == 3)
+			else if (strcmp(songsArtist4[0], artists[artNum]) == 0 && strcmp(songsArtist4[songNum], "") != 0)
 				printf("    -  %s\n", songsArtist4[songNum]);
 		}
 	}
@@ -205,20 +237,30 @@ void createPlaylist(char playlist[][STR_SIZE], char artists[][STR_SIZE], char so
 	int trackNum = *i;	// stores the trackNum.
 	int artNum, songNum;
 	for (artNum = 0; artNum < numOfArtists; artNum++)
-		for (songNum = 0; songNum < MAX_SONGS; songNum++, trackNum++)
+		for (songNum = 1; songNum <= MAX_SONGS; songNum++)
 		{
-			strcat(playlist[trackNum], artists[artNum]);
-			strcat(playlist[trackNum], " - ");
-			if (artNum == 0)
-				strcat(playlist[trackNum], songsArtist1[songNum]);
-			else if (artNum == 1)
-				strcat(playlist[trackNum], songsArtist2[songNum]);
-			else if (artNum == 2)
-				strcat(playlist[trackNum], songsArtist3[songNum]);
-			else if (artNum == 3)
-				strcat(playlist[trackNum], songsArtist4[songNum]);
+			if (strcmp(songsArtist1[0], artists[artNum]) == 0 && strcmp(songsArtist1[songNum], "") != 0)
+				createTrack(playlist, artists, songsArtist1, artNum, songNum, &trackNum);
+			else if (strcmp(songsArtist2[0], artists[artNum]) == 0 && strcmp(songsArtist2[songNum], "") != 0)
+				createTrack(playlist, artists, songsArtist2, artNum, songNum, &trackNum);
+			else if (strcmp(songsArtist3[0], artists[artNum]) == 0 && strcmp(songsArtist3[songNum], "") != 0)
+				createTrack(playlist, artists, songsArtist3, artNum, songNum, &trackNum);
+			else if (strcmp(songsArtist4[0], artists[artNum]) == 0 && strcmp(songsArtist4[songNum], "") != 0)
+				createTrack(playlist, artists, songsArtist4, artNum, songNum, &trackNum);
 		}
 	*i = trackNum;	// returns the trackNum back into main.
+}
+
+
+void createTrack(char playlist[][STR_SIZE], char artists[][STR_SIZE], char songsArtist[][STR_SIZE], int artNum, int songNum, int *track_no_from_main)
+{
+	int trackNum = *track_no_from_main;
+	strcat(playlist[trackNum], artists[artNum]);
+	strcat(playlist[trackNum], " - ");
+	strcat(playlist[trackNum], songsArtist[songNum]);
+	
+	trackNum++;
+	*track_no_from_main = trackNum;
 }
 
 
