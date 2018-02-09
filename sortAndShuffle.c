@@ -101,40 +101,13 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	// sort first half.
 	for (i = N/2-1; i > 0; )
 	{
-		if (i <= (N/2)/2-1)	// continues at 5, loop ends at 1 (works 6)
-			break;
-			
-		printf("i: %d\n", i);
 		j = rand() % i;
 		
-		printf("a[%d]: %s\t%s\n", j, a[j], "replacing with");
-		// switch pos only if the element in the array does not occur in the previous 5 positions.
-		for (k = i-5; k < i; k++)
-		{
-			printf("k: %d\ta[k]: %s\n", k, a[k]);
-			if (strcmp(a[j], a[k]) == 0)
-			{
-				puts("");
-				break;
-			}
-			else if (k == i-1)
-			{
-				++k;
-				printf("k: %d\ta[k]: %s\t%s\n", k, a[k], "being replaced");
-				allow_switch = 1;
-			}
-		}
+		strcpy(temp[0], a[j]);
+		strcpy(a[j], a[i]);
+		strcpy(a[i], temp[0]);
 		
-		if (allow_switch)
-		{
-			strcpy(temp[0], a[j]);
-			strcpy(a[j], a[i]);
-			strcpy(a[i], temp[0]);
-			
-			printf("replaced\n\n");
-			allow_switch = 0;
-			i--;
-		}
+		i--;
 	}
 	
 	// intermission.
