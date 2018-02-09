@@ -94,32 +94,44 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 {
 	int i, j, k;  // counters.
-	int allow_switch = 0;	// boolean value.
+	int shuffle = 1;	// boolean value.
+	int shuffle_num = 0;
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
-	//srand(time(NULL));
+	srand(time(NULL));
 	
-	for (i = N-1; i > 0; i--)
+	while (shuffle)
 	{
-		j = rand() % i;
+		printf("Number of Shuffles: %d\n", shuffle_num);
+		for (i = N-1; i > 0; i--)
+		{
+			j = rand() % i;
+			
+			strcpy(temp[0], a[j]);
+			strcpy(a[j], a[i]);
+			strcpy(a[i], temp[0]);
+		}
+		shuffle = 0;
 		
-		strcpy(temp[0], a[j]);
-		strcpy(a[j], a[i]);
-		strcpy(a[i], temp[0]);
-	}
-	
-	int conflict_num = 0;
-	for (i = N-1; i > 0; i--)
-	{
-		//for (k = i-5; k < i; k++)
-		for (k = i+5; k > i; k--)
-			if (strcmp(a[i], a[k]) == 0)
-			{
-				printf("\nConflict: %d\n", ++conflict_num);
-				printf("%d: %s\n", i, a[i]);
-				puts("with");
-				printf("%d: %s\n", k, a[k]);
-				puts("");
-			}
+		int conflict_num = 0;
+		for (i = N-1; i > 0; i--)
+		{
+			//for (k = i-5; k < i; k++)
+			for (k = i+5; k > i; k--)
+				if (strcmp(a[i], a[k]) == 0)
+				{
+					printf("\nConflict: %d\n", ++conflict_num);
+					printf("%d: %s\n", i, a[i]);
+					puts("with");
+					printf("%d: %s\n", k, a[k]);
+					puts("");
+					
+					shuffle = 1;
+					break;
+				}
+			if (shuffle)
+				break;
+		}
+		shuffle_num++;
 	}
 	
 	/*
