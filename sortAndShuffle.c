@@ -96,38 +96,37 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	int i, j, k;  // counters.
 	int allow_switch = 0;	// boolean value.
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
-	srand(time(NULL));
+	//srand(time(NULL));
 	
-	// sort first half.
-	for (i = N/2-1; i > 0; )
+	for (i = N-1; i > 0; i--)
 	{
 		j = rand() % i;
 		
 		strcpy(temp[0], a[j]);
 		strcpy(a[j], a[i]);
 		strcpy(a[i], temp[0]);
-		
-		i--;
 	}
 	
-	// intermission.
-	puts("");
-	for (i = 0; i < N; i++)
-		printf("%d: %s\n", i, a[i]);
-	puts("INTERMISSION\n\n\n\n\n\n\n\n\n");
-	
-	// sorts second half.
-	allow_switch = 0;
-	for (i = N-1; i > N/2-1; )
+	int conflict_num = 0;
+	for (i = N-1; i > 0; i--)
 	{
-		if (i <= (N/2-1 + N/4-2))// continues at 15, loop ends at 12 (works 16)
-			break;
-			
+		//for (k = i-5; k < i; k++)
+		for (k = i+5; k > i; k--)
+			if (strcmp(a[i], a[k]) == 0)
+			{
+				printf("\nConflict: %d\n", ++conflict_num);
+				printf("%d: %s\n", i, a[i]);
+				puts("with");
+				printf("%d: %s\n", k, a[k]);
+				puts("");
+			}
+	}
+	
+	/*
+	for (i = N-1; i > 0; )
+	{
 		printf("i: %d\n", i);
-		int rand_num = rand() % (i-11);
-		printf("rand_num: %d\n", rand_num);
-		j = rand_num + 12;
-		//j = (rand() % i) + 11;
+		j = rand() % i;
 		
 		printf("a[%d]: %s\t%s\n", j, a[j], "replacing with");
 		// switch pos only if the element in the array does not occur in the previous 5 positions.
@@ -158,21 +157,5 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 			i--;
 		}
 	}
-	
-	puts("");
-	for (i = 0; i < N; i++)
-		printf("%d: %s\n", i, a[i]);
-	
-	puts("");
-	for (i = 0; i < N; i++)
-		if (i >= 6)
-			for (k = i-5; k < i; k++)
-				if (strcmp(a[i], a[k]) == 0)
-				{
-					puts("Conflict:");
-					printf("%d: %s\n", i, a[i]);
-					puts("with");
-					printf("%d: %s\n", k, a[k]);
-					puts("");
-				}
+	*/
 }
