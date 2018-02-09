@@ -21,8 +21,6 @@ void mergeSort(char a[][STR_SIZE], int i, int j);
 void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
 {
 	int artNum;
-	// sorts the artist.
-	mergeSort(artists, 0, numOfArtists-1);
 	// sorts the song names by lexicographic ordering in ascending order.
 	for (artNum = 0; artNum < numOfArtists; artNum++)
 		if (artNum == 0)
@@ -33,6 +31,8 @@ void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], c
 			mergeSort(songsArtist3, 0, numSongsPerArtist[artNum]-1);
 		else if (artNum == 3)
 			mergeSort(songsArtist4, 0, numSongsPerArtist[artNum]-1);
+	// sorts the artist.
+	//mergeSort(artists, 0, numOfArtists-1);
 }
 
 
@@ -101,7 +101,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	
 	while (shuffle)
 	{
-		printf("Number of Shuffles: %d\n", shuffle_num);
+		//printf("Number of Shuffles: %d\n", shuffle_num);
 		for (i = N-1; i > 0; i--)
 		{
 			j = rand() % i;
@@ -119,11 +119,12 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 			for (k = i+5; k > i; k--)
 				if (strcmp(a[i], a[k]) == 0)
 				{
+					/*
 					printf("\nConflict: %d\n", ++conflict_num);
 					printf("%d: %s\n", i, a[i]);
 					puts("with");
 					printf("%d: %s\n", k, a[k]);
-					puts("");
+					puts("");*/
 					
 					shuffle = 1;
 					break;
