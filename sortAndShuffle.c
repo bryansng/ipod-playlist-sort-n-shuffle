@@ -18,11 +18,11 @@ void mergeSort(char a[][STR_SIZE], int i, int j);
 *
 */
 // sorts the Artist and song of the artist.
-void sortArtistNSongs(char artists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
+void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
 {
 	int artNum;
 	// sorts the artist.
-	mergeSort(artists, 0, numOfArtists-1);
+	mergeSort(sortedArtists, 0, numOfArtists-1);
 	// sorts the song names by lexicographic ordering in ascending order.
 	for (artNum = 0; artNum < numOfArtists; artNum++)
 		if (artNum == 0)
@@ -97,7 +97,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	int shuffle = 1;	// boolean value.
 	int shuffle_num = 0;
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
-	srand(time(NULL));
+	srand(time(NULL));	// seeds random number generator.
 	
 	while (shuffle)
 	{
