@@ -109,12 +109,16 @@ int main(void)
 				{
 					case 0:
 						strcpy(songsArtist1[songNum], tempStoreSong[0]);
+						break;
 					case 1:
 						strcpy(songsArtist2[songNum], tempStoreSong[0]);
+						break;
 					case 2:
 						strcpy(songsArtist3[songNum], tempStoreSong[0]);
+						break;
 					case 3:
 						strcpy(songsArtist4[songNum], tempStoreSong[0]);
+						break;
 				}
 				
 				// keeps track number of songs per artist and total number of songs.
@@ -123,7 +127,7 @@ int main(void)
 			
 				// resets tempStoreSong.
 				strcpy(tempStoreSong[0], "");
-				printf("tempStoreSong[0]: '%s'\n", tempStoreSong[0]);
+				//printf("tempStoreSong[0]: '%s'\n", tempStoreSong[0]);
 			}
 		}
 		puts("");
