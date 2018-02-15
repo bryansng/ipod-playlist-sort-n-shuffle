@@ -10,14 +10,15 @@
 void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2);
 void mergeSort(char a[][STR_SIZE], int i, int j);
 
-
-/*
-* This method sorts the artists alphabetically. It takes as input:
-* - sortedArtists: the array of artists that that should be sorted
-* - numOfArtists: the total number of artists
-*
+/* Function sorts sortedArtists and songsArtist. It takes in:
+* - sortedArtists: artist names to be sorted.
+* - songsArtist1: songs of artist 1 to be sorted.
+* - songsArtist2: songs of artist 2 to be sorted.
+* - songsArtist3: songs of artist 3 to be sorted.
+* - songsArtist4: songs of artist 4 to be sorted.
+* - numSongsPerArtist: number of songs from each artist.
+* - numOfArtists: total number of artists inputted (required for loop).
 */
-// sorts the Artist and song of the artist.
 void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
 {
 	int artNum;
@@ -36,13 +37,11 @@ void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SI
 }
 
 
-
-/*
-* This method sorts the songs of a specific artist alphabetically. It takes as input:
-* - songsOfAnArtist: the array of the songs of an artist that was provided from the standard input
-* - numOfArtists: the number of artists provided from the standard input
+/* Function merge sorts any 2D character array lexicographically. It takes in:
+* - a: 2D character array to be sorted.
+* - i: starting index of array to sort.
+* - j: ending index of array to sort.
 */
-// merge sort function.
 void mergeSort(char a[][STR_SIZE], int i, int j)
 {
 	int mid;
@@ -55,14 +54,20 @@ void mergeSort(char a[][STR_SIZE], int i, int j)
 		merge(a, i, mid, mid+1, j);	// merging of two sorted sub-arrays.
 	}
 }
-// merge sort function that merges two list together in ascending order via lexicographic ordering.
+/* Function that merges two list together in ascending order lexicographically.
+*  It takes in:
+* - a: 2D character array to be sorted.
+* - i1: starting index of the first list.
+* - j1: ending index of the first list.
+* - i2: starting index of the second list.
+* - j2: ending index of the seond list.
+*/
 void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 {
 	char temp[STR_SIZE][STR_SIZE] = {0};		// array used for merging.
-	int i, j, k;
+	int i, j, k = 0;
 	i = i1;		// beginning of the first list.
 	j = i2; 	// beginning of the second list.
-	k = 0;
 	
 	while (i <= j1 && j <= j2)		// while elements exist in both list.
 	{
@@ -78,22 +83,20 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 	while (j <= j2)		// copy remaining elements of the second list.
 		strcpy(temp[k++], a[j++]);
 		
-	// Transfer elements from temp[] back to a[].
+	// transfer elements from temp[] back to a[].
 	for (i = i1, j = 0; i <= j2; i++, j++)
 		strcpy(a[i], temp[j]);
 }
 
 
-
-/*
-* This method shuffles a set of songs. It takes as input:
-* - songsToBeShuffled: the array of the songs that should be shuffled
-* - numOfSongs: the number of songs to be shuffled
+/* Function shuffles any 2D character array via Knuth Fisher-Yate's algorithm.
+*  It takes in:
+* - a: 2D character array to be shuffled.
+* - N: row size of the 2D character array.
 */
-// shuffle function via knuth fisher-yate's algorithm.
 void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 {
-	int i, j, k;  // counters.
+	int i, j, k;  		// counters.
 	int shuffle = 1;	// boolean value.
 	int shuffle_num = 0;
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
@@ -112,7 +115,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 		}
 		shuffle = 0;
 		
-		int conflict_num = 0;
+		//int conflict_num = 0;
 		for (i = N-1; i > 0; i--)
 		{
 			//for (k = i-5; k < i; k++)
