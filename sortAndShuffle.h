@@ -3,7 +3,3 @@ void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SI
 void mergeSort(char a[][STR_SIZE], int i, int j);
 
 void shuffleArrayOfStrings(char a[][STR_SIZE], int N);
-
-//void sortArtists(char sortedArtists[][80] , int numOfArtists);
-//void sortSongs(char songsOfAnArtist[][80], int numOfArtists);
-//void shuffleSongs(char songsToBeShuffled[][80], int numOfSongs);

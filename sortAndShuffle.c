@@ -21,7 +21,7 @@ void mergeSort(char a[][STR_SIZE], int i, int j);
 void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numSongsPerArtist[MAX_ARTISTS], int numOfArtists)
 {
 	int artNum;
-	// sorts the artist.
+	// sorts the artist by lexicographic ordering in ascending order.
 	mergeSort(sortedArtists, 0, numOfArtists-1);
 	// sorts the song names by lexicographic ordering in ascending order.
 	for (artNum = 0; artNum < numOfArtists; artNum++)
