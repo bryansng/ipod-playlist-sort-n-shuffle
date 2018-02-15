@@ -9,6 +9,8 @@
 #include "sortAndShuffle.h"
 
 // le function prototypes.
+void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *ttl_artists_from_main, int numSongsPerArtist[], int *ttl_songs_from_main);
+
 void removeNewline(char a[][STR_SIZE], int i);
 
 void printSortedSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int numOfArtists);
@@ -21,6 +23,7 @@ int main(void)
 {
 	// the array containing artists names.
 	char artists[MAX_ARTISTS][STR_SIZE] = {0};
+	// the array containing sorted artists names.
 	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {0};
 	char songsArtist1[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 1.
 	char songsArtist2[MAX_SONGS][STR_SIZE] = {0}; // songs for Artist 2.
@@ -31,16 +34,88 @@ int main(void)
 	int numOfArtists = 0;
 	// the total number of songs for each artist (Note that less than 3 songs can be provided for each artist).
 	int numSongsPerArtist[MAX_ARTISTS] = {0};
-	int totalSongs = 0; // the total number of songs.
+	// the total number of songs.
+	int totalSongs = 0;
 	
 	
-	/*
+	/*	PART 1
 	* Use here functions that you should implement to insert artists and songs from the standard input.
 	* Note that you also need to track the number of artists and the number of songs for each artist.
 	*/
+	insertArtistsNSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &numOfArtists, numSongsPerArtist, &totalSongs);
+	
+	
+	/*	PART 2
+	* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
+	* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
+	*/
+	// sorts the Artist and song of the artist.
+	sortArtistNSongs(sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numSongsPerArtist, numOfArtists);
+	
+	printf("Sorted list of songs:\n");
+	printSortedSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numOfArtists);
+	
+	
+	/*	PART 3
+	* Use here the function shuffleSongs to shuffle all the songs
+	* Print the list of shuffled songs
+	*/
+	int trackNum = 0;	// starting index for track number set to zero.
+	char playlist[MAX_ARTISTS*MAX_SONGS*2][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
+	
+	// creates a playlist by adding all the songs with their artist together.
+	// creates first half of the playlist.
+	createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
+	// creates second half of the playlist.
+	createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
+	
+	// shuffle playlist via knuth fisher-yates's algorithm,
+	// and handles consecution of the track appearing after 5 different songs.
+	printf("\nShuffled Playlist:\n");
+	shuffleArrayOfStrings(playlist, totalSongs * 2);
+	
+	// prints the shuffled playlist.
+	for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
+		printf("%d: %s\n", trackNum, playlist[trackNum]);
+	
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// le function definitions.
+
+/* Function inserts the artist name and song of the artist from the stdin.
+*  It takes in:
+* - artists: artists names to be inputted.
+* - sortedArtists: artists names to be inputted and sorted after.
+* - songsArtist1: artist 1 songs to be inputted.
+* - songsArtist2: artist 2 songs to be inputted.
+* - songsArtist3: artist 3 songs to be inputted.
+* - songsArtist4: artist 4 songs to be inputted.
+* - numOfArtists: total number of artists.
+* - numSongsPerArtist: number of songs from each artist.
+* - *ttl_songs_from_main: total number of songs.
+*/
+void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SIZE], char songsArtist2[][STR_SIZE], char songsArtist3[][STR_SIZE], char songsArtist4[][STR_SIZE], int *ttl_artists_from_main, int numSongsPerArtist[], int *ttl_songs_from_main)
+{
 	int artNum, songNum;
 	char tempStoreArtist[1][STR_SIZE] = {0};	// holds artists temporary.
-	char tempStoreSong[1][STR_SIZE] = {0};	// holds songs temporary.
+	char tempStoreSong[1][STR_SIZE] = {0};		// holds songs temporary.
+	int numOfArtists = *ttl_artists_from_main;	// assigns total artists into a variable.
+	int totalSongs = *ttl_songs_from_main;		// assigns total songs into a variable.
 	
 	for (artNum = 0; artNum < MAX_ARTISTS; artNum++)
 	{
@@ -64,8 +139,8 @@ int main(void)
 			// resets tempStoreArtist.
 			strcpy(tempStoreArtist[0], "");
 		}
-		
 		puts("");
+		
 		// takes in the artist songs from user and removes newline in songs.
 		// if user press enter without input, stop inputting more songs from user.
 		for (songNum = 0; songNum < MAX_SONGS; songNum++)
@@ -94,70 +169,20 @@ int main(void)
 						strcpy(songsArtist4[songNum], tempStoreSong[0]);
 						break;
 				}
-				
 				// keeps track number of songs per artist and total number of songs.
 				numSongsPerArtist[artNum] += 1;
 				totalSongs += 1;
-			
+				
 				// resets tempStoreSong.
 				strcpy(tempStoreSong[0], "");
-				//printf("tempStoreSong[0]: '%s'\n", tempStoreSong[0]);
 			}
 		}
 		puts("");
 	}
-	
-	/*
-	* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
-	* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
-	*/
-	// sorts the Artist and song of the artist.
-	sortArtistNSongs(sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numSongsPerArtist, numOfArtists);
-	
-	printf("Sorted list of songs:\n");
-	printSortedSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numOfArtists);
-	
-	
-	/*
-	* Use here the function shuffleSongs to shuffle all the songs
-	* Print the list of shuffled songs
-	*/
-	int trackNum = 0;	// starting index for track number set to zero.
-	char playlist[MAX_ARTISTS*MAX_SONGS*2][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
-	
-	// creates a playlist by adding all the songs with their artist together.
-	// creates first half of the playlist.
-	createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
-	// creates second half of the playlist.
-	createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
-	
-	// shuffle playlist via knuth fisher-yates's algorithm,
-	// and handles consecution of the track appearing after 5 different songs.
-	printf("\n\nShuffled Playlist:\n");
-	shuffleArrayOfStrings(playlist, totalSongs * 2);
-	
-	// prints the shuffled playlist.
-	for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
-		printf("%d: %s\n", trackNum, playlist[trackNum]);
-	
-	
-	return 0;
+	*ttl_artists_from_main = numOfArtists;
+	*ttl_songs_from_main = totalSongs;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// le function definitions.
 
 /* Function removes newline in a 2D character array and takes in,
 * - a[][]: a 2D character array,
