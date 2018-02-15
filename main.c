@@ -21,6 +21,7 @@ void createTrack(char playlist[][STR_SIZE], char sortedArtists[][STR_SIZE], char
 
 int main(void)
 {
+	/*
 	// the array containing artists names.
 	char artists[MAX_ARTISTS][STR_SIZE] = {0};
 	// the array containing sorted artists names.
@@ -36,19 +37,33 @@ int main(void)
 	int numSongsPerArtist[MAX_ARTISTS] = {0};
 	// the total number of songs.
 	int totalSongs = 0;
+	*/
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
+	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b1 b9 []", "B23 B9381023 ./"};
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo", "L9 hoho", "l1 bubu pp"};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {"v1 in the house"};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {"Pork belly no", "AIYOYO hehe"};
+	int numOfArtists = 4;
+	int numSongsPerArtist[MAX_ARTISTS] = {2, 3, 1, 2};
+	int totalSongs = 2+3+1+2;
 	
 	
 	/*	PART 1
 	* Use here functions that you should implement to insert artists and songs from the standard input.
 	* Note that you also need to track the number of artists and the number of songs for each artist.
 	*/
-	insertArtistsNSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &numOfArtists, numSongsPerArtist, &totalSongs);
+	//insertArtistsNSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &numOfArtists, numSongsPerArtist, &totalSongs);
 	
 	
 	/*	PART 2
 	* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
 	* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
 	*/
+	printf("Unsorted list of songs:\n");
+	printSortedSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numOfArtists);
+	puts("\n");
+	
 	// sorts the Artist and song of the artist.
 	sortArtistNSongs(sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numSongsPerArtist, numOfArtists);
 	

@@ -7,6 +7,7 @@
 #define STR_SIZE 160
 #include "sortAndShuffle.h"
 
+void quickSort(char a[][STR_SIZE], int N);
 void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2);
 void mergeSort(char a[][STR_SIZE], int i, int j);
 
@@ -27,16 +28,96 @@ void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SI
 	// sorts the song names by lexicographic ordering in ascending order.
 	for (artNum = 0; artNum < numOfArtists; artNum++)
 		if (artNum == 0)
-			mergeSort(songsArtist1, 0, numSongsPerArtist[artNum]-1);
+			//mergeSort(songsArtist1, 0, numSongsPerArtist[artNum]-1);
+			quickSort(songsArtist1, numSongsPerArtist[artNum]);
 		else if (artNum == 1)
-			mergeSort(songsArtist2, 0, numSongsPerArtist[artNum]-1);
+			//mergeSort(songsArtist2, 0, numSongsPerArtist[artNum]-1);
+			quickSort(songsArtist2, numSongsPerArtist[artNum]);
 		else if (artNum == 2)
 			mergeSort(songsArtist3, 0, numSongsPerArtist[artNum]-1);
 		else if (artNum == 3)
 			mergeSort(songsArtist4, 0, numSongsPerArtist[artNum]-1);
 }
 
-
+// N is the size of the array.
+void quickSort(char a[][STR_SIZE], int N)
+{
+	size_t i, j;
+	int minIndex;
+	char temp[1][STR_SIZE] = {0};
+	
+	for (i = 0; i < N-1; i++)
+	{
+		minIndex = i;
+		for (j = i+1; j < N; j++)
+			// if numerical lexicographic ordering of minIndex is greater than j, we swap them.
+			if (strcmp(a[minIndex], a[j]) > 0)
+				minIndex = j;
+			
+		strcpy(temp[0], a[minIndex]);
+		strcpy(a[minIndex], a[i]);
+		strcpy(a[i], temp[0]);
+	}
+}
+void quickSortV2(char a[][STR_SIZE], int N)
+{
+	size_t i, j;
+	int minIndex;
+	int swap = 0;	// boolean value.
+	char temp[1][STR_SIZE] = {0};
+	
+	for (i = 0; i < N-1; i++)
+	{
+		minIndex = i;
+		for (j = i+1; j < N; j++)
+			// if numerical lexicographic ordering of minIndex is greater than j, we swap them.
+			if (strcmp(a[minIndex], a[j]) > 0)
+			{
+				minIndex = j;
+				swap = 1;
+			}
+			
+		if (swap)
+		{
+			strcpy(temp[0], a[minIndex]);
+			strcpy(a[minIndex], a[i]);
+			strcpy(a[i], temp[0]);
+			
+			swap = 0;
+		}
+	}
+}
+void quickSortV1(char a[][STR_SIZE], int N)
+{
+	size_t i, j;
+	int minIndex;
+	int swap = 0;	// boolean value.
+	char temp[1][STR_SIZE] = {0};
+	
+	for (i = 0; i < N-1; i++)
+	{
+		minIndex = i;
+		for (j = i+1; j < N; j++)
+			// if numerical lexicographic ordering of minIndex is greater than j, we swap them.
+			if (strcmp(a[minIndex], a[j]) > 0)
+			{
+				minIndex = j;
+				swap = 1;
+			}
+			
+			if (swap)
+			{
+				memset(temp[0], '$', N-2);
+				temp[0][N-1] = '\0';
+				
+				strcpy(temp[0], a[minIndex]);
+				strcpy(a[minIndex], a[i]);
+				strcpy(a[i], temp[0]);
+				
+				swap = 0;
+			}
+	}
+}
 /* Function merge sorts any 2D character array lexicographically. It takes in:
 * - a: 2D character array to be sorted.
 * - i: starting index of array to sort.
