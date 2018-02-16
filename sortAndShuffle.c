@@ -98,6 +98,7 @@ void quickSortV1(char a[][STR_SIZE], int N)
 	{
 		minIndex = i;
 		for (j = i+1; j < N; j++)
+		{
 			// if numerical lexicographic ordering of minIndex is greater than j, we swap them.
 			if (strcmp(a[minIndex], a[j]) > 0)
 			{
@@ -116,6 +117,7 @@ void quickSortV1(char a[][STR_SIZE], int N)
 				
 				swap = 0;
 			}
+		}
 	}
 }
 /* Function merge sorts any 2D character array lexicographically. It takes in:
@@ -170,8 +172,9 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 }
 
 
-/* Function shuffles any 2D character array via Knuth Fisher-Yate's algorithm.
-*  It takes in:
+/* Function brute-force shuffles any 2D character array via Knuth 
+*  Fisher-Yate's algorithm and takes into account the consecution of the 
+*  song not appearing until 5 other songs appeared. It takes in:
 * - a: 2D character array to be shuffled.
 * - N: row size of the 2D character array.
 */
@@ -185,10 +188,10 @@ void shuffleArrayOfStringsV1(char a[][STR_SIZE], int N)
 	
 	while (shuffle)
 	{
-		printf("Number of Shuffles: %d\n", shuffle_num);
+		//printf("Number of Shuffles: %d\n", shuffle_num);
 		for (i = N-1; i > 0; i--)
 		{
-			j = rand() % i;
+			j = rand() % i+1;
 			
 			strcpy(temp[0], a[j]);
 			strcpy(a[j], a[i]);
@@ -196,78 +199,73 @@ void shuffleArrayOfStringsV1(char a[][STR_SIZE], int N)
 		}
 		shuffle = 0;
 		
-		int conflict_num = 0;
+		//int conflict_num = 0;
 		for (i = N-1; i > 0; i--)
 		{
+			// bottom 5 index up to will-be replacing index.
 			//for (k = i-5; k < i; k++)
+			
+			// upper 5 index down to will-be replacing index.
 			for (k = i+5; k > i; k--)
 				if (strcmp(a[i], a[k]) == 0)
 				{
+					/*
 					printf("\nConflict: %d\n", ++conflict_num);
 					printf("%d: %s\n", i, a[i]);
 					puts("with");
 					printf("%d: %s\n", k, a[k]);
 					puts("");
+					*/
 					
 					shuffle = 1;
-					break;
+					break;	// break out of inner loop.
 				}
 			if (shuffle)
-				break;
+				break;	// break out of outer loop.
 		}
 		shuffle_num++;
 	}
 }
 
 
+/* Function shuffles any 2D character array via Knuth Fisher-Yate's algorithm
+*  and takes into account the consecution of the song not appearing until 5 *
+*  other songs appeared.
+*  It takes in:
+* - a: 2D character array to be shuffled.
+* - N: row size of the 2D character array.
+*/
 void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 {
 	int i, j, k;  		// counters.
-	int allow_switch = 0;	// boolean value.
-	int shuffle_num = 0;
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
-	//srand(time(NULL));	// seeds random number generator.
-	
-	int conflict_num = 0;
+	srand(time(NULL));	// seeds random number generator.
 	
 	for (i = N-1; i > 0; )
 	{
-		printf("i: %d\n", i);
-		j = rand() % i;
+		j = rand() % i+1;	// index for the random string in the array.
 		
-		printf("a[%d]: %s\t%s\n", j, a[j], "replacing with");
 		// switch pos only if the element in the array does not occur in the previous 5 positions.
 		for (k = i+5; k > i; k--)
 		{
-			printf("k: %d\ta[k]: %s\n", k, a[k]);
-			
-			if (strcmp(a[j], a[k]) == 0)	// if songs exist within 5 tracks
-			{
-				conflict_num++;
-				puts("");
+			// if that particular string exist previously,
+			// break back to outer loop and acquires another random index.
+			if (strcmp(a[j], a[k]) == 0)
 				break;
-			}
-			else if (k == i+1)	// if k reaches the last one
+			// if k reaches the last one,
+			// stops the inner loop,
+			// swaps strings,
+			// moves on to the next index in the outer loop.
+			else if (k == i+1)
 			{
-				conflict_num = 0;
 				--k;
-				printf("k: %d\ta[k]: %s\t%s\n", k, a[k], "being replaced");
-				allow_switch = 1;
+				
+				strcpy(temp[0], a[j]);
+				strcpy(a[j], a[i]);
+				strcpy(a[i], temp[0]);
+				
+				i--;
 			}
 		}
-		
-		if (allow_switch)
-		{
-			strcpy(temp[0], a[j]);
-			strcpy(a[j], a[i]);
-			strcpy(a[i], temp[0]);
-			
-			printf("replaced\n\n");
-			allow_switch = 0;
-			i--;
-		}
-		
-		if (conflict_num >= 20)	// break out and be printed by main.
-			break;
 	}
 }
