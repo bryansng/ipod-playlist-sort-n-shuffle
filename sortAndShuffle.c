@@ -175,7 +175,7 @@ void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2)
 * - a: 2D character array to be shuffled.
 * - N: row size of the 2D character array.
 */
-void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
+void shuffleArrayOfStringsV1(char a[][STR_SIZE], int N)
 {
 	int i, j, k;  		// counters.
 	int shuffle = 1;	// boolean value.
@@ -185,7 +185,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	
 	while (shuffle)
 	{
-		//printf("Number of Shuffles: %d\n", shuffle_num);
+		printf("Number of Shuffles: %d\n", shuffle_num);
 		for (i = N-1; i > 0; i--)
 		{
 			j = rand() % i;
@@ -196,19 +196,18 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 		}
 		shuffle = 0;
 		
-		//int conflict_num = 0;
+		int conflict_num = 0;
 		for (i = N-1; i > 0; i--)
 		{
 			//for (k = i-5; k < i; k++)
 			for (k = i+5; k > i; k--)
 				if (strcmp(a[i], a[k]) == 0)
 				{
-					/*
 					printf("\nConflict: %d\n", ++conflict_num);
 					printf("%d: %s\n", i, a[i]);
 					puts("with");
 					printf("%d: %s\n", k, a[k]);
-					puts("");*/
+					puts("");
 					
 					shuffle = 1;
 					break;
@@ -218,8 +217,19 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 		}
 		shuffle_num++;
 	}
+}
+
+
+void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
+{
+	int i, j, k;  		// counters.
+	int allow_switch = 0;	// boolean value.
+	int shuffle_num = 0;
+	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
+	//srand(time(NULL));	// seeds random number generator.
 	
-	/*
+	int conflict_num = 0;
+	
 	for (i = N-1; i > 0; )
 	{
 		printf("i: %d\n", i);
@@ -227,17 +237,20 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 		
 		printf("a[%d]: %s\t%s\n", j, a[j], "replacing with");
 		// switch pos only if the element in the array does not occur in the previous 5 positions.
-		for (k = i-5; k < i; k++)
+		for (k = i+5; k > i; k--)
 		{
 			printf("k: %d\ta[k]: %s\n", k, a[k]);
-			if (strcmp(a[j], a[k]) == 0)
+			
+			if (strcmp(a[j], a[k]) == 0)	// if songs exist within 5 tracks
 			{
+				conflict_num++;
 				puts("");
 				break;
 			}
-			else if (k == i-1)
+			else if (k == i+1)	// if k reaches the last one
 			{
-				++k;
+				conflict_num = 0;
+				--k;
 				printf("k: %d\ta[k]: %s\t%s\n", k, a[k], "being replaced");
 				allow_switch = 1;
 			}
@@ -253,6 +266,8 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 			allow_switch = 0;
 			i--;
 		}
+		
+		if (conflict_num >= 20)	// break out and be printed by main.
+			break;
 	}
-	*/
 }

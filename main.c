@@ -38,6 +38,30 @@ int main(void)
 	// the total number of songs.
 	int totalSongs = 0;
 	*/
+	/*
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
+	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b1 b9 []", "B23 B9381023 ./", "big titties"};
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo", "L9 hoho", "l1 bubu pp"};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {"v1 in the house", "dj vincent yall", "boom boom pow"};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {"Pork belly no", "AIYOYO hehe", "Belly"};
+	int numOfArtists = 4;
+	int numSongsPerArtist[MAX_ARTISTS] = {3, 3, 3, 3};
+	int totalSongs = 3+3+3+3;	// 12, at 9
+	*/
+	/*
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
+	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b1 b9 []", "B23 B9381023 ./"};
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo", "L9 hoho", "l1 bubu pp"};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {"v1 in the house", "dj vincent yall", "boom boom pow"};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {"Pork belly no", "AIYOYO hehe", "Belly"};
+	int numOfArtists = 4;
+	int numSongsPerArtist[MAX_ARTISTS] = {2, 3, 3, 3};
+	int totalSongs = 2+3+3+3;	// 11, at 8
+	*/
+	
+	// superior test case 1.
 	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
 	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
 	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b1 b9 []", "B23 B9381023 ./"};
@@ -46,7 +70,7 @@ int main(void)
 	char songsArtist4[MAX_SONGS][STR_SIZE] = {"Pork belly no", "AIYOYO hehe"};
 	int numOfArtists = 4;
 	int numSongsPerArtist[MAX_ARTISTS] = {2, 3, 1, 2};
-	int totalSongs = 2+3+1+2;
+	int totalSongs = 2+3+1+2;	// 8, at 5.
 	
 	
 	/*	PART 1
