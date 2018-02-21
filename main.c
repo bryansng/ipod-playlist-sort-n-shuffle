@@ -39,28 +39,54 @@ int main(void)
 	int totalSongs = 0;
 	*/
 	/*
-	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
-	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
-	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b1 b9 []", "B23 B9381023 ./", "big titties"};
-	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo", "L9 hoho", "l1 bubu pp"};
-	char songsArtist3[MAX_SONGS][STR_SIZE] = {"v1 in the house", "dj vincent yall", "boom boom pow"};
-	char songsArtist4[MAX_SONGS][STR_SIZE] = {"Pork belly no", "AIYOYO hehe", "Belly"};
-	int numOfArtists = 4;
-	int numSongsPerArtist[MAX_ARTISTS] = {3, 3, 3, 3};
-	int totalSongs = 3+3+3+3;	// 12, at 9
+	// superior test case 5.
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao"};
+	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao"};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {"B23 B9381023 ./"};
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {0};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {0};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {0};
+	int numOfArtists = 1;
+	int numSongsPerArtist[MAX_ARTISTS] = {1};
+	int totalSongs = 1;	// 1
 	*/
 	/*
-	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
-	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
+	// superior test case 4.
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan"};
+	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan"};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {"B23 B9381023 ./"};
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo"};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {0};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {0};
+	int numOfArtists = 2;
+	int numSongsPerArtist[MAX_ARTISTS] = {1, 1};
+	int totalSongs = 2;	// 2
+	*/
+	/*
+	// superior test case 3.
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en"};
+	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en"};
 	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b1 b9 []", "B23 B9381023 ./"};
-	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo", "L9 hoho", "l1 bubu pp"};
-	char songsArtist3[MAX_SONGS][STR_SIZE] = {"v1 in the house", "dj vincent yall", "boom boom pow"};
-	char songsArtist4[MAX_SONGS][STR_SIZE] = {"Pork belly no", "AIYOYO hehe", "Belly"};
-	int numOfArtists = 4;
-	int numSongsPerArtist[MAX_ARTISTS] = {2, 3, 3, 3};
-	int totalSongs = 2+3+3+3;	// 11, at 8
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo"};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {"v1 in the house", "vince vince"};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {0};
+	int numOfArtists = 3;
+	int numSongsPerArtist[MAX_ARTISTS] = {2, 1, 2};
+	int totalSongs = 2+1+2;	// 5
 	*/
 	
+	// superior test case 2.
+	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en"};
+	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en"};
+	char songsArtist1[MAX_SONGS][STR_SIZE] = {"b1 b9 []", "B23 B9381023 ./", "bobo"};
+	char songsArtist2[MAX_SONGS][STR_SIZE] = {"l5 yoyo"};
+	char songsArtist3[MAX_SONGS][STR_SIZE] = {"v1 in the house", "vince vince"};
+	char songsArtist4[MAX_SONGS][STR_SIZE] = {0};
+	int numOfArtists = 3;
+	int numSongsPerArtist[MAX_ARTISTS] = {3, 1, 2};
+	int totalSongs = 3+1+2;	// 6
+	
+	/*
 	// superior test case 1.
 	char artists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
 	char sortedArtists[MAX_ARTISTS][STR_SIZE] = {"bb sng hong yao", "emily liew xuan", "vincent ee en", "brady"};
@@ -70,9 +96,8 @@ int main(void)
 	char songsArtist4[MAX_SONGS][STR_SIZE] = {"Pork belly no", "AIYOYO hehe"};
 	int numOfArtists = 4;
 	int numSongsPerArtist[MAX_ARTISTS] = {2, 3, 1, 2};
-	int totalSongs = 2+3+1+2;	// 8, at 5.
-	
-	
+	int totalSongs = 2+3+1+2;	// 8
+	*/
 	/*	PART 1
 	* Use here functions that you should implement to insert artists and songs from the standard input.
 	* Note that you also need to track the number of artists and the number of songs for each artist.
@@ -218,8 +243,8 @@ void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE
 		}
 		puts("");
 	}
-	*ttl_artists_from_main = numOfArtists;
-	*ttl_songs_from_main = totalSongs;
+	*ttl_artists_from_main = numOfArtists;	// returns the numOfArtists back into main.
+	*ttl_songs_from_main = totalSongs;		// returns the totalSongs back into main.
 }
 
 
