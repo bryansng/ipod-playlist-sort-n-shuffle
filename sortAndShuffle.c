@@ -44,6 +44,7 @@ void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SI
 			quickSort(songsArtist4, numSongsPerArtist[artNum]);
 }
 
+
 /* Function quick sorts any 2D character array lexicographically. It takes in:
 * - a: 2D character array to be sorted.
 * - N: number of elements in the 2D character array. (or size of array)
@@ -131,6 +132,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	int shuffle = 1;	// boolean value.
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
 	srand(time(NULL));	// seeds random number generator.
+	//srand(11);
 	
 	/*	Loops explanation, shuffling and thinking about consecution.
 	*
@@ -145,15 +147,26 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	*/
 	while (shuffle)
 	{
-		// shuffle algorithm, starting from the last element in array.
+		// shuffle algorithm, starting from the last element in array to the second element.
 		for (i = N-1; i > 0; i--)
 		{
-			j = rand() % (i+1);
+			j = rand() % (i+1);	// from last to first.
 			
 			strcpy(temp[0], a[j]);
 			strcpy(a[j], a[i]);
 			strcpy(a[i], temp[0]);
 		}
+		/*
+		// shuffle algorithm, starting from the first element in array to the second last element.
+		for (i = 0; i < N-1; i++)
+		{
+			j = i + (rand() % (N-i)); // from first to last.
+			
+			strcpy(temp[0], a[j]);
+			strcpy(a[j], a[i]);
+			strcpy(a[i], temp[0]);
+		}
+		*/
 		
 		// deals with consecution.
 		shuffle = 0;
