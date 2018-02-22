@@ -5,5 +5,9 @@
 !main.c
 !sortAndSuffle.c
 !sortAndShuffle.h
-!inputPrintAndcreatePlaylist.c
-!inputPrintAndcreatePlaylist.h
+!insertArtistsAndSongs.c
+!insertArtistsAndSongs.h
+!createPlaylistAndTrack.c
+!createPlaylistAndTrack.h
+!printArtistsAndSongs.c
+!printArtistsAndSongs.h
