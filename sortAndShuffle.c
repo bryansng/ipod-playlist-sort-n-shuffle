@@ -7,10 +7,12 @@
 #define STR_SIZE 160
 #include "sortAndShuffle.h"
 
+// le function prototypes.
 void quickSort(char a[][STR_SIZE], int N);
 void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2);
 void mergeSort(char a[][STR_SIZE], int i, int j);
 
+// le function definitions.
 /* Function sorts sortedArtists and songsArtist. It takes in:
 * - sortedArtists: artist names to be sorted.
 * - songsArtist1: songs of artist 1 to be sorted.
@@ -24,7 +26,8 @@ void sortArtistNSongs(char sortedArtists[][STR_SIZE], char songsArtist1[][STR_SI
 {
 	int artNum;
 	// sorts the artist by lexicographic ordering in ascending order.
-	mergeSort(sortedArtists, 0, numOfArtists-1);
+	//mergeSort(sortedArtists, 0, numOfArtists-1);
+	quickSort(sortedArtists, numOfArtists);
 	// sorts the song names by lexicographic ordering in ascending order.
 	for (artNum = 0; artNum < numOfArtists; artNum++)
 		if (artNum == 0)
@@ -62,65 +65,6 @@ void quickSort(char a[][STR_SIZE], int N)
 		strcpy(temp[0], a[minIndex]);
 		strcpy(a[minIndex], a[i]);
 		strcpy(a[i], temp[0]);
-	}
-}
-void quickSortV2(char a[][STR_SIZE], int N)
-{
-	size_t i, j;
-	int minIndex;
-	int swap = 0;	// boolean value.
-	char temp[1][STR_SIZE] = {0};
-	
-	for (i = 0; i < N-1; i++)
-	{
-		minIndex = i;
-		for (j = i+1; j < N; j++)
-			// if numerical lexicographic ordering of minIndex is greater than j, we swap them.
-			if (strcmp(a[minIndex], a[j]) > 0)
-			{
-				minIndex = j;
-				swap = 1;
-			}
-			
-		if (swap)
-		{
-			strcpy(temp[0], a[minIndex]);
-			strcpy(a[minIndex], a[i]);
-			strcpy(a[i], temp[0]);
-			
-			swap = 0;
-		}
-	}
-}
-void quickSortV1(char a[][STR_SIZE], int N)
-{
-	size_t i, j;
-	int minIndex;
-	int swap = 0;	// boolean value.
-	char temp[1][STR_SIZE] = {0};
-	
-	for (i = 0; i < N-1; i++)
-	{
-		minIndex = i;
-		for (j = i+1; j < N; j++)
-			// if numerical lexicographic ordering of minIndex is greater than j, we swap them.
-			if (strcmp(a[minIndex], a[j]) > 0)
-			{
-				minIndex = j;
-				swap = 1;
-			}
-			
-		if (swap)
-		{
-			memset(temp[0], '$', N-2);
-			temp[0][N-1] = '\0';
-			
-			strcpy(temp[0], a[minIndex]);
-			strcpy(a[minIndex], a[i]);
-			strcpy(a[i], temp[0]);
-			
-			swap = 0;
-		}
 	}
 }
 /* Function merge sorts any 2D character array lexicographically. It takes in:
@@ -186,7 +130,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	int i, j, k;  		// counters.
 	int shuffle = 1;	// boolean value.
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
-	//srand(time(NULL));	// seeds random number generator.
+	srand(time(NULL));	// seeds random number generator.
 	
 	/*	Loops explanation, shuffling and thinking about consecution.
 	*
@@ -204,7 +148,7 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 		// shuffle algorithm, starting from the last element in array.
 		for (i = N-1; i > 0; i--)
 		{
-			j = rand() % i+1;
+			j = rand() % (i+1);
 			
 			strcpy(temp[0], a[j]);
 			strcpy(a[j], a[i]);
@@ -235,86 +179,8 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 						break;	// break out of inner loop.
 					}
 			}
-			
 			if (shuffle)
 				break;	// break out of outer loop.
 		}
-	}
-}
-
-
-/*
-PROBLEM: Inconsistent results due to the playlist order.
-   - Using Fisher-Yate's algo instead of Knuth Fisher-Yate's algo.
-   - Works with arrays greater than 7 or 8, inconsistent results at 6, doesn't
-   work at all below 6.
-*/
-/* Function shuffles any 2D character array via Fisher-Yate's algorithm
-*  and takes into account the consecution of the song not appearing until 5 *
-*  other songs appeared.
-*  It takes in:
-* - a: 2D character array to be shuffled.
-* - N: row size of the 2D character array.
-*/
-void shuffleArrayOfStringsV1(char a[][STR_SIZE], int N)
-{
-	int i, j, k;  		// counters.
-	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
-	srand(time(NULL));	// seeds random number generator.
-	
-	for (i = N-1; i > 0; )
-	{
-		j = rand() % i;	// index for the random string in the array.
-		
-		if (N/2 > 5)
-		{
-			// switch pos only if the element in the array does not occur in the previous 5 positions.
-			for (k = i+5; k > i; k--)
-			{
-				// if that particular string exist previously,
-				// break back to outer loop and acquires another random index.
-				if (strcmp(a[j], a[k]) == 0)
-					break;
-				// if k reaches the last one,
-				// swaps strings,
-				// stops the inner loop,
-				// moves on to the next index in the outer loop.
-				else if (k == i+1)
-				{
-					strcpy(temp[0], a[j]);
-					strcpy(a[j], a[i]);
-					strcpy(a[i], temp[0]);
-					
-					k--;
-					i--;
-				}
-			}
-		}
-		/*
-		else
-		{
-			// switch pos only if the element in the array does not occur in the previous 5 positions.
-			for (k = i+(N/4); k > i; k--)
-			{
-				// if that particular string exist previously,
-				// break back to outer loop and acquires another random index.
-				if (strcmp(a[j], a[k]) == 0)
-					break;
-				// if k reaches the last one,
-				// swaps strings,
-				// stops the inner loop,
-				// moves on to the next index in the outer loop.
-				else if (k == i+1)
-				{
-					strcpy(temp[0], a[j]);
-					strcpy(a[j], a[i]);
-					strcpy(a[i], temp[0]);
-					
-					k--;
-					i--;
-				}
-			}
-		}
-		*/
 	}
 }
