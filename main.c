@@ -37,38 +37,40 @@ int main(void)
 	insertArtistsNSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &numOfArtists, numSongsPerArtist, &totalSongs);
 	
 	
-	
-	/*	PART 2
-	* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
-	* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
-	*/
-	// sorts the Artist and song of the artist.
-	sortArtistNSongs(sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numSongsPerArtist, numOfArtists);
-	
-	printf("Sorted list of songs:\n");
-	printSortedSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numOfArtists);
-	
-	
-	
-	/*	PART 3
-	* Use here the function shuffleSongs to shuffle all the songs
-	* Print the list of shuffled songs
-	*/
-	int trackNum = 0;	// starting index for track number set to zero.
-	char playlist[MAX_ARTISTS*MAX_SONGS*2][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
-	
-	// creates a playlist by adding all the songs with their artist together.
-	// creates first half of the playlist.
-	createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
-	// creates second half of the playlist.
-	createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
-	
-	// shuffle playlist via knuth fisher-yates's algorithm,
-	// and handles consecution of the track appearing after 5 different songs.
-	printf("\nShuffled Playlist:\n");
-	shuffleArrayOfStrings(playlist, totalSongs * 2);
-	
-	// prints the shuffled playlist.
-	for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
-		printf("%02d: %s\n", trackNum+1, playlist[trackNum]);
+	if (totalSongs > 0)
+	{
+		/*	PART 2
+		* Use here the function sortArtists to sort the array of the artists and sortSongs to sort the songs of each artist
+		* Print each artist (alphabetically) and for each of them print the list of songs sorted alphabetically
+		*/
+		// sorts the Artist and song of the artist.
+		sortArtistNSongs(sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numSongsPerArtist, numOfArtists);
+		
+		printf("Sorted list of songs:\n");
+		printSortedSongs(artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, numOfArtists);
+		
+		
+		
+		/*	PART 3
+		* Use here the function shuffleSongs to shuffle all the songs
+		* Print the list of shuffled songs
+		*/
+		int trackNum = 0;	// starting index for track number set to zero.
+		char playlist[MAX_ARTISTS*MAX_SONGS*2][STR_SIZE] = {0}; // holds the artist + song that is added to the playlist.
+		
+		// creates a playlist by adding all the songs with their artist together.
+		// creates first half of the playlist.
+		createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
+		// creates second half of the playlist.
+		createPlaylist(playlist, artists, sortedArtists, songsArtist1, songsArtist2, songsArtist3, songsArtist4, &trackNum, numOfArtists);
+		
+		// shuffle playlist via knuth fisher-yates's algorithm,
+		// and handles consecution of the track appearing after 5 different songs.
+		printf("\nShuffled Playlist:\n");
+		shuffleArrayOfStrings(playlist, totalSongs * 2);
+		
+		// prints the shuffled playlist.
+		for (trackNum = 0; trackNum < totalSongs * 2; trackNum++)
+			printf("%02d: %s\n", trackNum+1, playlist[trackNum]);
+	}
 }
