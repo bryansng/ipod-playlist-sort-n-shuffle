@@ -1,3 +1,5 @@
+/* Written by Sng Hong Yao.
+ * Student No. 17205050 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -132,19 +134,8 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 	int shuffle = 1;	// boolean value.
 	char temp[1][STR_SIZE] = {0};  // array used as temp in switching pos.
 	srand(time(NULL));	// seeds random number generator.
-	//srand(11);
 	
-	/*	Loops explanation, shuffling and thinking about consecution.
-	*
-	* while loop: while we are allowed to shuffle,
-	* first loop: for elements in array from last element to 2nd,
-	* second loop: for unsorted artists,
-	* 			  if name of sortedArtists is the name of the first artist,
-	* 			  and sortedArtists[] is a valid artist (i.e. not empty),
-	* 			  and songsArtist1[] is a valid song (i.e. not empty),
-	* 			  then print the song of that artist and break out to move 
-	* 			  on to the next song.
-	*/
+	// while loop: while we are allowed to shuffle
 	while (shuffle)
 	{
 		// shuffle algorithm, starting from the last element in array to the second element.
@@ -168,10 +159,18 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 		}
 		*/
 		
-		// deals with consecution.
+		// Deals with consecution.
+		/* First, set the shuffle flag to disable,
+		 * loop through the playlist and search for songs that appeared within
+		 * the previous 5 songs of itself.
+		 * if such cases exist, set the shuffle flag back to enable and break
+		 * out of both inner and outer loop, back to the start of the while 
+		 * loop.
+		 */
 		shuffle = 0;
 		for (i = N-1; i > 0; i--)
 		{
+			// Consecution where songs should appear after 5 songs of itself.
 			if (N/2 > 5)
 			{
 				// upper 5 index down to will-be replacing index.
@@ -182,6 +181,9 @@ void shuffleArrayOfStrings(char a[][STR_SIZE], int N)
 						break;	// break out of inner loop.
 					}
 			}
+			/* Consecution where songs should appear after 5 songs of itself do not work when the number of inputted songs are less than 6.
+			 * The code below simply ensures that the same song do not after itself.
+			 */
 			else
 			{
 				// upper N/4=totalSongs/2 index down to will-be replacing index.

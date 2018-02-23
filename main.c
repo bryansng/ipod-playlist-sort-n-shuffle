@@ -1,3 +1,5 @@
+/* Written by Sng Hong Yao.
+ * Student No. 17205050 */
 #include <stdio.h>
 
 #define MAX_ARTISTS 4

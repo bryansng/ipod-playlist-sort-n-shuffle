@@ -1,3 +1,5 @@
+/* Written by Sng Hong Yao.
+ * Student No. 17205050 */
 #include <stdio.h>
 #include <string.h>
 
@@ -7,6 +9,7 @@
 #include "printArtistsAndSongs.h"
 
 
+// le function definitions.
 /* Function prints the sorted artist with their songs. It takes in:
 * - artists: the unsorted artists that is used to compare with sortedArtists.
 * - sortedArtists: the sorted artists that is used to compare with artists.

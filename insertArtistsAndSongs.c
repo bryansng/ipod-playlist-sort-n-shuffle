@@ -1,3 +1,5 @@
+/* Written by Sng Hong Yao.
+ * Student No. 17205050 */
 #include <stdio.h>
 #include <string.h>
 
@@ -62,7 +64,15 @@ void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE
 			printf("Insert song %d for %s\n", songNum+1, artists[artNum]);
 			fgets(tempStoreSong[0], STR_SIZE, stdin);
 			
-			if (tempStoreSong[0][0] == '\n')
+			// 
+			// if artist name is valid, but the first song is not inputted for that artist,
+			// then keep asking for the user to input at least one song for that artist.
+			if ( tempStoreSong[0][0] == '\n' && songNum == 0 && (strcmp(artists[artNum], "") != 0))
+			{
+				printf("Input Error! Please enter at least one song for %s.\n\n", artists[artNum]);
+				songNum = -1;
+			}
+			else if (tempStoreSong[0][0] == '\n')
 				break;
 			else
 			{
@@ -98,9 +108,9 @@ void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE
 }
 
 
-/* Function removes newline in a 2D character array and takes in,
+/* Function removes newline at the end of a string in a 2D character array and takes in,
 * - a[][]: a 2D character array,
-* - i: the index for which string row it should remove * the newline from.
+* - i: the index for which string row it should remove the newline from.
 */
 void removeNewline(char a[][STR_SIZE], int i)
 {
