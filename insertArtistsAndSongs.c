@@ -10,6 +10,8 @@
 
 // le function prototypes.
 void removeNewline(char a[][STR_SIZE], int i);
+int artistRepeat(char artists[][STR_SIZE], char artist[][STR_SIZE]);
+int songRepeat(char songsArtist[][STR_SIZE], char song[][STR_SIZE]);
 
 
 // le function definitions.
@@ -46,6 +48,16 @@ void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE
 		{
 			removeNewline(tempStoreArtist, 0);
 			
+			// if artist is repeated, goes back up to the start of the for loop and keeps asking the user for a different artist name.
+			// else, copy into artists.
+			if (artistRepeat(artists, tempStoreArtist))
+			{
+				printf("\n[Input Error] You cannot input the same artist twice.\n\n");
+				artNum--;
+				strcpy(tempStoreArtist[0], "");
+				continue;
+			}
+			
 			strcpy(artists[artNum], tempStoreArtist[0]);
 			strcpy(sortedArtists[artNum], tempStoreArtist[0]);
 			
@@ -64,35 +76,57 @@ void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE
 			printf("Insert song %d for %s\n", songNum+1, artists[artNum]);
 			fgets(tempStoreSong[0], STR_SIZE, stdin);
 			
-			// 
 			// if artist name is valid, but the first song is not inputted for that artist,
 			// then keep asking for the user to input at least one song for that artist.
 			if ( tempStoreSong[0][0] == '\n' && songNum == 0 && (strcmp(artists[artNum], "") != 0))
 			{
-				printf("Input Error! Please enter at least one song for %s.\n\n", artists[artNum]);
-				songNum = -1;
+				printf("[Input Error] Please enter at least one song for %s.\n\n", artists[artNum]);
+				songNum--;
 			}
 			else if (tempStoreSong[0][0] == '\n')
 				break;
 			else
 			{
+				int bool_back_to_for = 0;
 				removeNewline(tempStoreSong, 0);
 			
 				switch(artNum)
 				{
+					// if song is repeated, goes back up to the start of the for loop and keeps asking the user for a different song name.
+					// else, copy into songsArtist.
 					case 0:
-						strcpy(songsArtist1[songNum], tempStoreSong[0]);
+						if (songRepeat(songsArtist1, tempStoreSong))
+							bool_back_to_for = 1;
+						else
+							strcpy(songsArtist1[songNum], tempStoreSong[0]);
 						break;
 					case 1:
-						strcpy(songsArtist2[songNum], tempStoreSong[0]);
+						if (songRepeat(songsArtist2, tempStoreSong))
+							bool_back_to_for = 1;
+						else
+							strcpy(songsArtist2[songNum], tempStoreSong[0]);
 						break;
 					case 2:
-						strcpy(songsArtist3[songNum], tempStoreSong[0]);
+						if (songRepeat(songsArtist3, tempStoreSong))
+							bool_back_to_for = 1;
+						else
+							strcpy(songsArtist3[songNum], tempStoreSong[0]);
 						break;
 					case 3:
-						strcpy(songsArtist4[songNum], tempStoreSong[0]);
+						if (songRepeat(songsArtist4, tempStoreSong))
+							bool_back_to_for = 1;
+						else
+							strcpy(songsArtist4[songNum], tempStoreSong[0]);
 						break;
 				}
+				// prints error message and goes back to top of for loop.
+				if (bool_back_to_for)
+				{
+					printf("\n[Input Error] You cannot input the same song for %s.\n\n", artists[artNum]);
+					songNum--;
+					continue; // prevents incrementing totalSongs and numSongsPerArtist[] if song repeated.
+				}
+				
 				// keeps track number of songs per artist and total number of songs.
 				numSongsPerArtist[artNum] += 1;
 				totalSongs += 1;
@@ -105,6 +139,34 @@ void insertArtistsNSongs(char artists[][STR_SIZE], char sortedArtists[][STR_SIZE
 	}
 	*ttl_artists_from_main = numOfArtists;	// returns the numOfArtists back into main.
 	*ttl_songs_from_main = totalSongs;		// returns the totalSongs back into main.
+}
+
+
+/* Function checks if the same artist is inputted more than once in artists and takes in,
+* - artists: 2D character array containing the artists.
+* - artist: 2D character array containing the inputted artist from the user.
+*/
+int artistRepeat(char artists[][STR_SIZE], char artist[][STR_SIZE])
+{
+	for (size_t artNum = 0; artNum < MAX_ARTISTS; artNum++)
+		if (strcmp(artists[artNum], artist[0]) == 0)
+			return 1;
+			
+	return 0;
+}
+
+
+/* Function checks if the same song is inputted more than once in songsArtist and takes in,
+* - songsArtist: 2D character array containing the songs of the artist.
+* - song: 2D character array containing the inputted song from the user.
+*/
+int songRepeat(char songsArtist[][STR_SIZE], char song[][STR_SIZE])
+{
+	for (size_t songNum = 0; songNum < MAX_SONGS; songNum++)
+		if (strcmp(songsArtist[songNum], song[0]) == 0)
+			return 1;
+			
+	return 0;
 }
 
 

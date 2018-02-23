@@ -14,6 +14,7 @@ void quickSort(char a[][STR_SIZE], int N);
 void merge(char a[][STR_SIZE], int i1, int j1, int i2, int j2);
 void mergeSort(char a[][STR_SIZE], int i, int j);
 
+
 // le function definitions.
 /* Function sorts sortedArtists and songsArtist. It takes in:
 * - sortedArtists: artist names to be sorted.
