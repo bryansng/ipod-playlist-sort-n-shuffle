@@ -1,3 +1,3 @@
-Sort and Shuffle Test Cases
+iPod Playlist (Sort and Shuffle)
 ===
-A program that uses CUnit to create test cases for the quick sort and fisherYates algorithms provided.
+A program that mimics the functionality of a music playlist by first sorting the playlist, followed by shuffling the playlist with songs' consecution in mind.
