@@ -1,5 +1,6 @@
 # Ignore everything
-*
+./*
+./*/
 
 # But not these files...
 !main.c
@@ -11,3 +12,6 @@
 !createPlaylistAndTrack.h
 !printArtistsAndSongs.c
 !printArtistsAndSongs.h
+
+!./readme-resources/
+!./readme-resources/*
