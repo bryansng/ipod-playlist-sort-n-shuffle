@@ -2,7 +2,7 @@
 
 A program that mimics the functionality of a music playlist by first sorting the playlist, followed by shuffling the playlist with songs' consecution in mind.
 
-![Alt text](./readme-resources/img/playlist_1.png "Preview")
+![Alt text](./readme-resources/img/overview.png "Preview")
 
 &nbsp;
 ## Characteristics
